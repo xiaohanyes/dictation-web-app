@@ -208,6 +208,7 @@ function prevStatusLabel (s: WordStatus): string {
 .word-editor-pinyin {
   font-size: 0.8rem;
   color: var(--color-text-muted);
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .word-editor-actions {
