@@ -1,0 +1,187 @@
+/**
+ * 全局样式 - 听写助手
+ *
+ * 设计语言：温暖教育风 (Warm Educational)
+ * - 主色：暖橙 (#F2994A) + 深蓝 (#2D3A4A)
+ * - 辅助色：柔粉 (#FFECD2)、薄荷绿 (#6FCF97)
+ * - 背景做了微妙的纸质纹理感，让人联想到"书写"和"笔记本"
+ * - 展示字体用 LXGW WenKai（霞鹜文楷）—— 一款开源书法字体，
+ *   非常适合"听写"这个场景，给人手写温暖感
+ * - 正文字体用 Noto Sans SC，清晰易读
+ */
+
+/* ========================================
+   CSS 变量 (Design Tokens)
+   ======================================== */
+:root {
+  /* 核心色板 */
+  --color-primary: #f2994a;
+  --color-primary-light: #f9bc80;
+  --color-primary-dark: #d97b2e;
+  --color-secondary: #2d3a4a;
+  --color-secondary-light: #3d4f63;
+  --color-accent-green: #6fcf97;
+  --color-accent-red: #eb5757;
+  --color-accent-yellow: #f2c94c;
+
+  /* 背景色系 */
+  --color-bg-warm: #fff8f0;
+  --color-bg-card: #ffffff;
+  --color-bg-cream: #ffecd2;
+  --color-bg-overlay: rgba(45, 58, 74, 0.6);
+
+  /* 文字色系 */
+  --color-text-primary: #2d3a4a;
+  --color-text-secondary: #6b7b8d;
+  --color-text-muted: #a0aec0;
+  --color-text-inverse: #ffffff;
+
+  /* 字体 */
+  --font-display: 'LXGW WenKai', 'Noto Sans SC', serif;
+  --font-body: 'Noto Sans SC', -apple-system, sans-serif;
+
+  /* 圆角 */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+
+  /* 阴影 */
+  --shadow-sm: 0 2px 8px rgba(45, 58, 74, 0.06);
+  --shadow-md: 0 4px 20px rgba(45, 58, 74, 0.1);
+  --shadow-lg: 0 8px 40px rgba(45, 58, 74, 0.12);
+  --shadow-glow: 0 0 30px rgba(242, 153, 74, 0.2);
+
+  /* 过渡 */
+  --transition-fast: 0.15s ease;
+  --transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-bounce: 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* 间距 */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+  --space-3xl: 64px;
+}
+
+/* ========================================
+   重置与基础
+   ======================================== */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--color-text-primary);
+  background-color: var(--color-bg-warm);
+  line-height: 1.6;
+  min-height: 100vh;
+
+  /**
+   * 纸质纹理背景
+   * 使用多层径向渐变模拟纸张的微妙纹理，
+   * 让整个应用有"笔记本"的质感
+   */
+  background-image:
+    radial-gradient(ellipse at 20% 50%, rgba(242, 153, 74, 0.05) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(111, 207, 151, 0.04) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 80%, rgba(242, 201, 76, 0.03) 0%, transparent 50%);
+}
+
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+a:hover {
+  color: var(--color-primary-dark);
+}
+
+/* ========================================
+   通用卡片样式
+   ======================================== */
+.card {
+  background: var(--color-bg-card);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  padding: var(--space-xl);
+  transition:
+    box-shadow var(--transition-normal),
+    transform var(--transition-normal);
+}
+
+.card:hover {
+  box-shadow: var(--shadow-lg);
+}
+
+/* ========================================
+   动画关键帧
+   ======================================== */
+
+/** 淡入上滑 - 用于页面元素的入场动画 */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/** 柔和脉冲 - 用于播放按钮的呼吸灯效果 */
+@keyframes softPulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(242, 153, 74, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 16px rgba(242, 153, 74, 0);
+  }
+}
+
+/** 轻微弹跳 - 用于按钮点击反馈 */
+@keyframes gentleBounce {
+  0% {
+    transform: scale(1);
+  }
+  40% {
+    transform: scale(0.92);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* 工具类 */
+.animate-fade-in {
+  animation: fadeInUp 0.5s ease both;
+}
+
+.animate-fade-in-delay-1 {
+  animation: fadeInUp 0.5s ease 0.1s both;
+}
+
+.animate-fade-in-delay-2 {
+  animation: fadeInUp 0.5s ease 0.2s both;
+}
+
+.animate-fade-in-delay-3 {
+  animation: fadeInUp 0.5s ease 0.3s both;
+}
