@@ -547,7 +547,10 @@ async function onPathChange (path: string | null) {
 
   // 自动计算续接位置：查询同层级下已有的听写记录，
   // 统计已听写过的总字数作为偏移起点
-  const sessions = await db.dictation_sessions.filter((s) => s.filterPath === path).toArray()
+  // 注意：需要排除掉从历史记录创建的（sourceMode === 'history' 或 sourceSessionId 存在），以免重复计算进度
+  const sessions = await db.dictation_sessions
+    .filter((s) => s.filterPath === path && s.sourceMode !== 'history' && !s.sourceSessionId)
+    .toArray()
 
   let totalDictated = 0
   for (const session of sessions) {
