@@ -23,8 +23,8 @@ const router = createRouter({
     },
     {
       path: '/import',
-      name: 'import',
-      component: () => import('@/views/ImportPage.vue'),
+      name: 'data-manage',
+      component: () => import('@/views/DataManagePage.vue'),
     },
     {
       path: '/dictation',

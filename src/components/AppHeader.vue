@@ -9,7 +9,10 @@
   <header class="app-header">
     <div class="header-inner">
       <!-- Logo 区域 -->
-      <router-link to="/" class="header-brand">
+      <router-link
+        to="/"
+        class="header-brand"
+      >
         <span class="brand-icon">✍️</span>
         <span class="brand-text">听写助手</span>
       </router-link>
@@ -25,15 +28,27 @@
           <span class="nav-icon">🏠</span>
           <span>首页</span>
         </router-link>
-        <router-link to="/import" class="nav-link" active-class="nav-link--active">
-          <span class="nav-icon">📥</span>
-          <span>JSON 导入</span>
+        <router-link
+          to="/import"
+          class="nav-link"
+          active-class="nav-link--active"
+        >
+          <span class="nav-icon">💾</span>
+          <span>数据管理</span>
         </router-link>
-        <router-link to="/dictation-plan" class="nav-link" active-class="nav-link--active">
+        <router-link
+          to="/dictation-plan"
+          class="nav-link"
+          active-class="nav-link--active"
+        >
           <span class="nav-icon">📋</span>
           <span>听写计划</span>
         </router-link>
-        <router-link to="/word-library" class="nav-link" active-class="nav-link--active">
+        <router-link
+          to="/word-library"
+          class="nav-link"
+          active-class="nav-link--active"
+        >
           <span class="nav-icon">📚</span>
           <span>词库管理</span>
         </router-link>
@@ -145,14 +160,12 @@
 /* ---- 底部装饰渐变线 ---- */
 .header-accent {
   height: 2px;
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    var(--color-primary-light) 20%,
-    var(--color-primary) 50%,
-    var(--color-accent-green) 80%,
-    transparent 100%
-  );
+  background: linear-gradient(90deg,
+      transparent 0%,
+      var(--color-primary-light) 20%,
+      var(--color-primary) 50%,
+      var(--color-accent-green) 80%,
+      transparent 100%);
   opacity: 0.6;
 }
 </style>
