@@ -12,7 +12,10 @@
     </section>
 
     <!-- ==================== 第一层：词库卡片列表 ==================== -->
-    <div v-if="!activePath" class="animate-fade-in-delay-1">
+    <div
+      v-if="!activePath"
+      class="animate-fade-in-delay-1"
+    >
       <div class="toolbar">
         <div class="toolbar-left">
           <n-input
@@ -26,14 +29,21 @@
           </n-input>
         </div>
         <div class="toolbar-right">
-          <n-button type="primary" size="medium" @click="$router.push('/import')">
+          <n-button
+            type="primary"
+            size="medium"
+            @click="$router.push('/import')"
+          >
             📥 导入词库
           </n-button>
         </div>
       </div>
 
       <!-- 空状态 -->
-      <div v-if="filteredGroups.length === 0" class="empty-state">
+      <div
+        v-if="filteredGroups.length === 0"
+        class="empty-state"
+      >
         <div class="empty-icon">📚</div>
         <h3 class="empty-title">还没有词库</h3>
         <p class="empty-desc">点击上方按钮导入你的第一个词库吧！</p>
@@ -50,7 +60,12 @@
           >
             <div class="library-card-top">
               <span class="library-card-icon">📖</span>
-              <n-tag size="small" round :bordered="false" type="info"> {{ group.count }} 字 </n-tag>
+              <n-tag
+                size="small"
+                round
+                :bordered="false"
+                type="info"
+              > {{ group.count }} 字 </n-tag>
             </div>
             <h3 class="library-card-title">{{ group.displayName }}</h3>
             <p class="library-card-path">{{ group.path }}</p>
@@ -71,10 +86,17 @@
     </div>
 
     <!-- ==================== 第二层：文字详情表格 ==================== -->
-    <div v-else class="detail-view animate-fade-in">
+    <div
+      v-else
+      class="detail-view animate-fade-in"
+    >
       <!-- 面包屑导航 -->
       <div class="breadcrumb">
-        <n-button text type="primary" @click="exitDetail"> ← 返回词库列表 </n-button>
+        <n-button
+          text
+          type="primary"
+          @click="exitDetail"
+        > ← 返回词库列表 </n-button>
         <span class="breadcrumb-sep">/</span>
         <span class="breadcrumb-current">{{ activePath }}</span>
       </div>
@@ -103,7 +125,20 @@
           >
             🗑️ 删除选中（{{ checkedKeys.length }}）
           </n-button>
-          <n-button type="primary" size="medium" @click="openAddModal"> ➕ 新增文字 </n-button>
+          <n-button
+            secondary
+            type="info"
+            size="medium"
+            @click="handleExport"
+            :disabled="detailWords.length === 0"
+          >
+            📤 导出 JSON
+          </n-button>
+          <n-button
+            type="primary"
+            size="medium"
+            @click="openAddModal"
+          > ➕ 新增文字 </n-button>
         </div>
       </div>
 
@@ -135,15 +170,24 @@
       <div class="modal-form">
         <div class="form-item">
           <label class="form-label">文字</label>
-          <n-input v-model:value="formData.content" placeholder="输入文字" />
+          <n-input
+            v-model:value="formData.content"
+            placeholder="输入文字"
+          />
         </div>
         <div class="form-item">
           <label class="form-label">拼音</label>
-          <n-input v-model:value="formData.pinyin" placeholder="输入拼音" />
+          <n-input
+            v-model:value="formData.pinyin"
+            placeholder="输入拼音"
+          />
         </div>
         <div class="form-item">
           <label class="form-label">层级路径</label>
-          <n-input v-model:value="formData.path" placeholder="输入层级路径" />
+          <n-input
+            v-model:value="formData.path"
+            placeholder="输入层级路径"
+          />
         </div>
       </div>
     </n-modal>
@@ -206,7 +250,7 @@ watch(groupSearch, () => {
 })
 
 /** 加载词库分组 */
-async function loadGroups() {
+async function loadGroups () {
   const allWords = await db.words.toArray()
   const map = new Map<string, WordGroup>()
 
@@ -308,7 +352,7 @@ const canSave = computed(() => {
 //  导航操作
 // ============================================================
 
-function enterDetail(path: string) {
+function enterDetail (path: string) {
   activePath.value = path
   detailSearch.value = ''
   checkedKeys.value = []
@@ -317,7 +361,7 @@ function enterDetail(path: string) {
   loadDetailWords()
 }
 
-function exitDetail() {
+function exitDetail () {
   activePath.value = null
   loadGroups()
 }
@@ -326,7 +370,7 @@ function exitDetail() {
 //  数据加载
 // ============================================================
 
-async function loadDetailWords() {
+async function loadDetailWords () {
   if (!activePath.value) return
   detailLoading.value = true
   try {
@@ -351,19 +395,19 @@ async function loadDetailWords() {
 //  CRUD 操作
 // ============================================================
 
-function openAddModal() {
+function openAddModal () {
   editingWord.value = null
   formData.value = { content: '', pinyin: '', path: activePath.value || '' }
   showModal.value = true
 }
 
-function openEditModal(word: Word) {
+function openEditModal (word: Word) {
   editingWord.value = word
   formData.value = { content: word.content, pinyin: word.pinyin, path: word.path }
   showModal.value = true
 }
 
-async function handleSave() {
+async function handleSave () {
   if (!canSave.value) return false
   try {
     const data = {
@@ -389,7 +433,7 @@ async function handleSave() {
   }
 }
 
-async function handleDelete(id: number) {
+async function handleDelete (id: number) {
   try {
     await db.words.delete(id)
     message.success('删除成功')
@@ -400,7 +444,7 @@ async function handleDelete(id: number) {
   }
 }
 
-async function handleBatchDelete() {
+async function handleBatchDelete () {
   if (checkedKeys.value.length === 0) return
   try {
     await db.words.bulkDelete(checkedKeys.value)
@@ -410,6 +454,52 @@ async function handleBatchDelete() {
   } catch (err) {
     console.error('批量删除失败:', err)
     message.error('批量删除失败')
+  }
+}
+
+async function handleExport () {
+  if (!activePath.value || detailWords.value.length === 0) return
+
+  try {
+    const parts = activePath.value.split('/')
+    let className = parts.pop() || 'DefaultClass'
+    let unitName = parts.length > 0 ? parts.join('/') : 'DefaultUnit'
+
+    // 如果 activePath 只有一级 (e.g. "一年级"), split 后 parts=[], className="一年级", unitName="DefaultUnit"
+    // 为了更友好，这种情况下可以保留 unitName 为空或者设为 "Root"
+    if (unitName === 'DefaultUnit' && className !== 'DefaultClass') {
+      // do nothing or adjust strategy
+    }
+
+    // 构造符合 ImportPage 导入格式的 JSON
+    const jsonData = {
+      unit: unitName,
+      content: [
+        {
+          class: className,
+          chars: detailWords.value.map((w) => ({
+            char: w.content,
+            pinyin: w.pinyin,
+          })),
+        },
+      ],
+    }
+
+    // 触发下载
+    const blob = new Blob([JSON.stringify(jsonData, null, 2)], { type: 'application/json' })
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
+    a.download = `${className}.json`
+    document.body.appendChild(a)
+    a.click()
+    document.body.removeChild(a)
+    URL.revokeObjectURL(url)
+
+    message.success('导出成功')
+  } catch (err) {
+    console.error('导出失败:', err)
+    message.error('导出失败')
   }
 }
 
@@ -569,10 +659,12 @@ onMounted(() => {
 }
 
 @keyframes float {
+
   0%,
   100% {
     transform: translateY(0);
   }
+
   50% {
     transform: translateY(-8px);
   }
@@ -589,6 +681,7 @@ onMounted(() => {
   color: var(--color-text-muted);
   margin-bottom: var(--space-xl);
 }
+
 /* ---- 分页 ---- */
 .pagination-row {
   display: flex;

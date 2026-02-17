@@ -13,23 +13,35 @@
     <div class="import-body animate-fade-in-delay-1">
       <!-- 层级前缀输入 -->
       <div class="form-section">
-        <label class="field-label">📂 层级前缀（必填）</label>
-        <n-input v-model:value="levelPrefix" placeholder="例如：一年级下册" size="large" clearable>
+        <label class="field-label">📂 层级前缀（可选）</label>
+        <n-input
+          v-model:value="levelPrefix"
+          placeholder="例如：一年级下册"
+          size="large"
+          clearable
+        >
           <template #prefix>
             <span class="input-prefix-icon">📁</span>
           </template>
         </n-input>
         <p class="field-hint">
-          最终层级格式：<strong>{{ levelPrefix || '前缀' }} / unit / class</strong>
+          最终层级格式：<strong>{{ levelPrefix ? `${levelPrefix} / ` : '' }}unit / class</strong>
         </p>
       </div>
 
       <!-- JSON 输入方式切换 -->
       <div class="form-section">
         <label class="field-label">📝 JSON 数据</label>
-        <n-tabs v-model:value="inputMode" type="segment" animated>
+        <n-tabs
+          v-model:value="inputMode"
+          type="segment"
+          animated
+        >
           <!-- Tab 1: 文件上传 -->
-          <n-tab-pane name="file" tab="📁 文件上传">
+          <n-tab-pane
+            name="file"
+            tab="📁 文件上传"
+          >
             <n-upload
               accept=".json"
               :max="10"
@@ -46,7 +58,10 @@
           </n-tab-pane>
 
           <!-- Tab 2: 直接输入 -->
-          <n-tab-pane name="text" tab="✏️ 直接输入">
+          <n-tab-pane
+            name="text"
+            tab="✏️ 直接输入"
+          >
             <n-input
               v-model:value="rawJsonText"
               type="textarea"
@@ -60,10 +75,18 @@
       </div>
 
       <!-- 解析错误提示 -->
-      <n-alert v-if="parseError" type="error" :title="parseError" class="animate-fade-in" />
+      <n-alert
+        v-if="parseError"
+        type="error"
+        :title="parseError"
+        class="animate-fade-in"
+      />
 
       <!-- 预览区域 -->
-      <div v-if="parsedEntries.length > 0" class="preview-section animate-fade-in">
+      <div
+        v-if="parsedEntries.length > 0"
+        class="preview-section animate-fade-in"
+      >
         <label class="field-label">
           👀 预览（{{ parsedEntries.length }} 个文字，{{ uniquePaths.length }} 个层级）
         </label>
@@ -86,14 +109,20 @@
               >
                 {{ entry.content }}
                 <template #avatar>
-                  <span v-if="entry.isDuplicate" class="tag-badge">⚠️</span>
+                  <span
+                    v-if="entry.isDuplicate"
+                    class="tag-badge"
+                  >⚠️</span>
                 </template>
               </n-tag>
             </div>
           </n-collapse-item>
         </n-collapse>
 
-        <p v-if="duplicateCount > 0" class="duplicate-hint">
+        <p
+          v-if="duplicateCount > 0"
+          class="duplicate-hint"
+        >
           ⚠️ {{ duplicateCount }} 个文字已存在于对应层级下，导入时将自动跳过
         </p>
       </div>
@@ -104,7 +133,7 @@
           type="primary"
           size="large"
           round
-          :disabled="newEntriesCount === 0 || !levelPrefix.trim()"
+          :disabled="newEntriesCount === 0"
           :loading="importing"
           @click="handleImport"
         >
@@ -116,7 +145,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import {
   NInput,
@@ -155,6 +184,9 @@ const parseError = ref('')
 
 /** 导入中状态 */
 const importing = ref(false)
+
+/** 解析后的原始 JSON 数据（未处理层级前缀） */
+const importedData = ref<JsonUnitData[]>([])
 
 // ============================================================
 //  JSON 格式定义
@@ -239,29 +271,49 @@ const groupedPreview = computed(() => {
  * 将 JSON 中的 unit/class/chars 结构转换为扁平的 ParsedEntry 数组
  * 层级拼接规则：用户前缀 / unit / class
  */
-function parseJsonData(data: JsonUnitData): ParsedEntry[] {
+/**
+ * 监听原始数据或层级前缀变化，自动重新生成预览数据
+ */
+watch([importedData, levelPrefix], () => {
+  updateParsedEntries()
+})
+
+/**
+ * 根据当前的 importedData 和 levelPrefix 生成最终的 parsedEntries
+ * 并执行查重逻辑
+ */
+async function updateParsedEntries () {
+  if (importedData.value.length === 0) {
+    parsedEntries.value = []
+    return
+  }
+
   const prefix = levelPrefix.value.trim()
-  if (!prefix) return []
-
   const entries: ParsedEntry[] = []
-  const unit = data.unit
 
-  for (const classItem of data.content) {
-    // 拼接层级：前缀/unit/class
-    const path = `${prefix}/${unit}/${classItem.class}`
+  for (const data of importedData.value) {
+    const unit = data.unit
+    for (const classItem of data.content) {
+      // 拼接层级：前缀/unit/class 或 unit/class
+      const path = prefix
+        ? `${prefix}/${unit}/${classItem.class}`
+        : `${unit}/${classItem.class}`
 
-    for (const charItem of classItem.chars) {
-      const key = `${path}|${charItem.char}`
-      entries.push({
-        content: charItem.char,
-        pinyin: charItem.pinyin,
-        path,
-        isDuplicate: existingSet.value.has(key),
-      })
+      for (const charItem of classItem.chars) {
+        // 先临时 isDuplicate false，稍后统一查重
+        entries.push({
+          content: charItem.char,
+          pinyin: charItem.pinyin,
+          path,
+          isDuplicate: false,
+        })
+      }
     }
   }
 
-  return entries
+  // 统一查重
+  await markDuplicates(entries)
+  parsedEntries.value = entries
 }
 
 /**
@@ -270,16 +322,13 @@ function parseJsonData(data: JsonUnitData): ParsedEntry[] {
  * 读取所有上传的 JSON 文件并解析。
  * 使用 FileReader API 读取文件内容，然后 JSON.parse 解析。
  */
-async function handleFileChange(options: { fileList: UploadFileInfo[] }) {
+async function handleFileChange (options: { fileList: UploadFileInfo[] }) {
   parseError.value = ''
   parsedEntries.value = []
 
-  if (!levelPrefix.value.trim()) {
-    parseError.value = '请先输入层级前缀'
-    return
-  }
+  // if (!levelPrefix.value.trim()) { ... } <-- 移除校验
 
-  const allEntries: ParsedEntry[] = []
+  const allData: JsonUnitData[] = []
 
   for (const fileInfo of options.fileList) {
     if (!fileInfo.file) continue
@@ -292,7 +341,7 @@ async function handleFileChange(options: { fileList: UploadFileInfo[] }) {
       const items: JsonUnitData[] = Array.isArray(data) ? data : [data]
       for (const item of items) {
         validateJsonStructure(item)
-        allEntries.push(...parseJsonData(item))
+        allData.push(item)
       }
     } catch (err: any) {
       parseError.value = `文件 "${fileInfo.name}" 解析失败：${err.message}`
@@ -300,38 +349,32 @@ async function handleFileChange(options: { fileList: UploadFileInfo[] }) {
     }
   }
 
-  // 查询已存在的数据，用于标记重复
-  await markDuplicates(allEntries)
-  parsedEntries.value = allEntries
+  importedData.value = allData
 }
 
 /**
  * 解析直接输入的 JSON 文本
  */
-async function parseTextInput() {
+async function parseTextInput () {
   parseError.value = ''
   parsedEntries.value = []
 
   const text = rawJsonText.value.trim()
   if (!text) return
 
-  if (!levelPrefix.value.trim()) {
-    parseError.value = '请先输入层级前缀'
-    return
-  }
+  // if (!levelPrefix.value.trim()) { ... } <-- 移除校验
 
   try {
     const data = JSON.parse(text)
     const items: JsonUnitData[] = Array.isArray(data) ? data : [data]
-    const allEntries: ParsedEntry[] = []
+    const allData: JsonUnitData[] = []
 
     for (const item of items) {
       validateJsonStructure(item)
-      allEntries.push(...parseJsonData(item))
+      allData.push(item)
     }
 
-    await markDuplicates(allEntries)
-    parsedEntries.value = allEntries
+    importedData.value = allData
   } catch (err: any) {
     parseError.value = `JSON 解析失败：${err.message}`
   }
@@ -344,7 +387,7 @@ async function parseTextInput() {
  * 每个 content 项包含 class（字符串）和 chars（数组），
  * 每个 chars 项包含 char 和 pinyin。
  */
-function validateJsonStructure(data: any): asserts data is JsonUnitData {
+function validateJsonStructure (data: any): asserts data is JsonUnitData {
   if (!data || typeof data !== 'object') {
     throw new Error('JSON 应该是一个对象')
   }
@@ -376,7 +419,7 @@ function validateJsonStructure(data: any): asserts data is JsonUnitData {
  * 读取文件内容为文本
  * 使用 FileReader API 的 Promise 封装
  */
-function readFileAsText(file: File): Promise<string> {
+function readFileAsText (file: File): Promise<string> {
   return new Promise((resolve, reject) => {
     const reader = new FileReader()
     reader.onload = () => resolve(reader.result as string)
@@ -391,14 +434,14 @@ function readFileAsText(file: File): Promise<string> {
  * 从待导入数据中提取所有涉及的路径，查询这些路径下已有的文字，
  * 然后对每条数据标记是否重复（同一路径下同一文字）
  */
-async function markDuplicates(entries: ParsedEntry[]) {
+async function markDuplicates (entries: ParsedEntry[]) {
   const paths = new Set(entries.map((e) => e.path))
   const set = new Set<string>()
 
   for (const path of paths) {
     const existing = await db.words.where('path').equals(path).toArray()
     for (const w of existing) {
-      set.add(`${w.path}|${w.content}`)
+      set.add(`${w.path}|${w.content}|${w.pinyin}`)
     }
   }
 
@@ -406,7 +449,7 @@ async function markDuplicates(entries: ParsedEntry[]) {
 
   // 更新每条记录的重复标记
   for (const entry of entries) {
-    entry.isDuplicate = set.has(`${entry.path}|${entry.content}`)
+    entry.isDuplicate = set.has(`${entry.path}|${entry.content}|${entry.pinyin}`)
   }
 }
 
@@ -420,8 +463,8 @@ async function markDuplicates(entries: ParsedEntry[]) {
  * 将解析后的非重复文字数据批量写入 words 表。
  * 使用 Dexie 的 bulkAdd 实现高效批量写入。
  */
-async function handleImport() {
-  if (!levelPrefix.value.trim() || newEntriesCount.value === 0) return
+async function handleImport () {
+  if (newEntriesCount.value === 0) return
 
   importing.value = true
   try {
