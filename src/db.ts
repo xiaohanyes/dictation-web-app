@@ -67,6 +67,8 @@ export interface SessionWord {
   pinyin: string
   /** 该字在本次听写中的状态 */
   status: WordStatus
+  /** 上次听写的状态（从历史记录新建计划时携带，便于听写时参考） */
+  prevStatus?: WordStatus
 }
 
 /**
@@ -95,6 +97,10 @@ export interface DictationSession {
   createdAt: number
   /** 完成时间戳 */
   completedAt?: number
+  /** 来源听写记录 ID（从历史记录创建时记录，用于追踪链） */
+  sourceSessionId?: number
+  /** 来源模式：library-从文字库创建, history-从历史记录筛选创建 */
+  sourceMode?: 'library' | 'history'
 }
 
 // ============================================================
@@ -122,6 +128,16 @@ const db = new Dexie('dictation-db') as Dexie & {
 db.version(2).stores({
   words: '++id, path, [path+content]',
   dictation_sessions: '++id, status, createdAt',
+})
+
+/**
+ * v3: 新增 sourceSessionId 索引
+ * 支持从已完成的历史记录中筛选特定状态的字来创建新的听写计划，
+ * sourceSessionId 记录该计划来源于哪条历史记录，方便回溯追踪
+ */
+db.version(3).stores({
+  words: '++id, path, [path+content]',
+  dictation_sessions: '++id, status, createdAt, sourceSessionId',
 })
 
 export { db }

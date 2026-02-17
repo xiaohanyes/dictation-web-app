@@ -48,7 +48,7 @@
               <span class="session-card-time">{{ formatTime(session.createdAt) }}</span>
             </div>
             <h3 class="session-card-name">{{ session.name }}</h3>
-            <p v-if="session.note" class="session-card-note">{{ session.note }}</p>
+            <p class="session-card-note">{{ session.note || '&nbsp;' }}</p>
             <div class="session-card-progress">
               <n-progress
                 type="line"
@@ -110,7 +110,7 @@
               <span class="session-card-time">{{ formatTime(session.createdAt) }}</span>
             </div>
             <h3 class="session-card-name">{{ session.name }}</h3>
-            <p v-if="session.note" class="session-card-note">{{ session.note }}</p>
+            <p class="session-card-note">{{ session.note || '&nbsp;' }}</p>
             <div class="session-card-progress">
               <n-progress
                 type="line"

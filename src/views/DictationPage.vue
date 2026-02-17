@@ -24,51 +24,110 @@
   -->
   <div id="dictationPage">
     <!-- ======= 加载状态 ======= -->
-    <div v-if="loading" class="loading-state">
+    <div
+      v-if="loading"
+      class="loading-state"
+    >
       <n-spin size="large" />
       <p>加载词汇中...</p>
     </div>
 
     <!-- ======= 无数据状态 ======= -->
-    <div v-else-if="!session" class="empty-state">
+    <div
+      v-else-if="!session"
+      class="empty-state"
+    >
       <div class="empty-icon">🤷</div>
       <h3>未找到该听写计划</h3>
-      <n-button type="primary" round @click="$router.push('/')"> 回到首页 </n-button>
+      <n-button
+        type="primary"
+        round
+        @click="$router.push('/')"
+      > 回到首页 </n-button>
     </div>
 
     <!-- ======= 听写完成状态 ======= -->
-    <div v-else-if="isFinished" class="finish-state animate-fade-in">
+    <div
+      v-else-if="isFinished"
+      class="finish-state animate-fade-in"
+    >
       <div class="finish-icon">🎉</div>
       <h2 class="finish-title">听写完成！</h2>
+      <div
+        class="edit-trigger"
+        @click.stop="openEditModal"
+      >
+        <span class="edit-trigger-name">{{ sessionName }}</span>
+        <span
+          class="edit-trigger-icon"
+          title="编辑名称和备注"
+        >✏️</span>
+      </div>
       <div class="finish-stats">
         <div class="finish-stat">
-          <span class="finish-stat-value finish-stat--correct">{{ stats.correct }}</span>
+          <span class="finish-stat-value finish-stat--correct">{{ computedStats.correct }}</span>
           <span class="finish-stat-label">都会</span>
         </div>
         <div class="finish-stat">
-          <span class="finish-stat-value finish-stat--fuzzy">{{ stats.fuzzy }}</span>
+          <span class="finish-stat-value finish-stat--fuzzy">{{ computedStats.fuzzy }}</span>
           <span class="finish-stat-label">模糊</span>
         </div>
         <div class="finish-stat">
-          <span class="finish-stat-value finish-stat--wrong-pinyin">{{ stats.wrongPinyin }}</span>
+          <span class="finish-stat-value finish-stat--wrong-pinyin">{{
+            computedStats.wrongPinyin
+          }}</span>
           <span class="finish-stat-label">不会拼音</span>
         </div>
         <div class="finish-stat">
-          <span class="finish-stat-value finish-stat--wrong-writing">{{ stats.wrongWriting }}</span>
+          <span class="finish-stat-value finish-stat--wrong-writing">{{
+            computedStats.wrongWriting
+          }}</span>
           <span class="finish-stat-label">不会书写</span>
         </div>
       </div>
       <div class="finish-actions">
-        <n-button type="primary" size="large" round @click="restart"> 🔄 重新开始 </n-button>
-        <n-button size="large" round @click="$router.push('/')"> 🏠 回到首页 </n-button>
+        <n-button
+          type="primary"
+          size="large"
+          round
+          @click="restart"
+        > 🔄 重新开始 </n-button>
+        <n-button
+          size="large"
+          round
+          @click="createPlanFromThis"
+        > 📋 从此记录新建计划 </n-button>
+        <n-button
+          size="large"
+          round
+          @click="$router.push('/')"
+        > 🏠 回到首页 </n-button>
       </div>
+
+      <!-- 词汇状态编辑列表 -->
+      <WordStatusEditor
+        :words="words"
+        @update:status="handleWordStatusUpdate"
+      />
     </div>
 
     <!-- ======= 开始前的设置面板（是否打乱） ======= -->
-    <div v-else-if="!hasStarted" class="setup-state animate-fade-in">
+    <div
+      v-else-if="!hasStarted"
+      class="setup-state animate-fade-in"
+    >
       <div class="setup-icon">📝</div>
       <h2 class="setup-title">准备开始听写</h2>
-      <p class="setup-path">📂 {{ sessionName }}</p>
+      <div
+        class="edit-trigger"
+        @click.stop="openEditModal"
+      >
+        <span class="edit-trigger-name">{{ sessionName }}</span>
+        <span
+          class="edit-trigger-icon"
+          title="编辑名称和备注"
+        >✏️</span>
+      </div>
       <p class="setup-count">
         共 <strong>{{ words.length }}</strong> 个词语
       </p>
@@ -93,20 +152,48 @@
         </div>
       </div>
 
-      <n-button type="primary" size="large" round @click="startDictation"> ✨ 开始听写 </n-button>
+      <n-button
+        type="primary"
+        size="large"
+        round
+        @click="startDictation"
+      > ✨ 开始听写 </n-button>
+
+      <!-- 词汇状态编辑（开始前也可查看/修改） -->
+      <WordStatusEditor
+        :words="words"
+        @update:status="handleWordStatusUpdate"
+      />
     </div>
 
     <!-- ======= 核心听写界面 ======= -->
-    <div v-else class="dictation-active">
+    <div
+      v-else
+      class="dictation-active"
+    >
       <!-- 顶部工具栏 -->
       <div class="toolbar animate-fade-in">
-        <n-button text @click="$router.push('/')"> ← 返回 </n-button>
+        <n-button
+          text
+          @click="$router.push('/')"
+        > ← 返回 </n-button>
         <div class="toolbar-info">
-          <span class="toolbar-path">{{ sessionName }}</span>
+          <span class="toolbar-path">{{ sessionName }}
+            <n-button
+              text
+              size="small"
+              @click="openEditModal"
+              title="编辑名称和备注"
+            >✏️</n-button>
+          </span>
           <span class="toolbar-progress">{{ currentIndex + 1 }} / {{ words.length }}</span>
         </div>
         <div class="toolbar-options">
-          <n-button text size="small" @click="toggleShuffle">
+          <n-button
+            text
+            size="small"
+            @click="toggleShuffle"
+          >
             {{ isShuffled ? '🔀 已打乱' : '📋 顺序' }}
           </n-button>
         </div>
@@ -114,7 +201,10 @@
 
       <!-- 进度条 -->
       <div class="progress-bar animate-fade-in-delay-1">
-        <div class="progress-fill" :style="{ width: `${progressPercent}%` }" />
+        <div
+          class="progress-fill"
+          :style="{ width: `${progressPercent}%` }"
+        />
       </div>
 
       <!-- 播放区域 -->
@@ -133,33 +223,40 @@
 
       <!-- 上一个 / 下一个 导航 -->
       <div class="nav-area">
-        <button class="nav-btn" :disabled="currentIndex <= 0" @click="goPrev">◀ 上一个</button>
-        <button class="nav-btn" :disabled="currentIndex >= words.length - 1" @click="goNext">
+        <button
+          class="nav-btn"
+          :disabled="currentIndex <= 0"
+          @click="goPrev"
+        >◀ 上一个</button>
+        <button
+          class="nav-btn"
+          :disabled="currentIndex >= words.length - 1"
+          @click="goNext"
+        >
           下一个 ▶
         </button>
       </div>
 
-      <!-- 答案区域 -->
+      <!-- 答案区域（直接展示） -->
       <div class="answer-area animate-fade-in-delay-3">
-        <div
-          class="answer-card"
-          :class="{ 'answer-card--revealed': answerRevealed }"
-          @click="revealAnswer"
-        >
-          <!-- 遮罩层（未揭示时显示） -->
-          <div v-if="!answerRevealed" class="answer-mask">
-            <span class="answer-mask-icon">👁️</span>
-            <span class="answer-mask-text">点击查看答案</span>
-          </div>
-          <!-- 答案内容 -->
-          <div v-else class="answer-content">
+        <div class="answer-card answer-card--revealed">
+          <div class="answer-content">
+            <span
+              v-if="currentWord?.pinyin"
+              class="answer-pinyin"
+            >{{ currentWord.pinyin }}</span>
             <span class="answer-text">{{ currentWord?.content }}</span>
+            <span
+              v-if="currentWord?.prevStatus"
+              class="answer-prev-status"
+              :class="`answer-prev-status--${currentWord.prevStatus}`"
+            >上次: {{ prevStatusText(currentWord.prevStatus) }}</span>
           </div>
         </div>
       </div>
 
-      <!-- 反馈按钮区域（答案揭示后显示） -->
-      <div class="feedback-area" :class="{ 'feedback-area--visible': answerRevealed }">
+      <!-- 反馈按钮区域（始终显示） -->
+      <div class="feedback-area feedback-area--visible">
         <button
           class="feedback-btn feedback-btn--wrong-pinyin"
           @click="markAndNext('wrong_pinyin')"
@@ -174,27 +271,74 @@
           <span class="feedback-icon">✏️</span>
           <span class="feedback-label">不会书写</span>
         </button>
-        <button class="feedback-btn feedback-btn--fuzzy" @click="markAndNext('fuzzy')">
+        <button
+          class="feedback-btn feedback-btn--fuzzy"
+          @click="markAndNext('fuzzy')"
+        >
           <span class="feedback-icon">🤔</span>
           <span class="feedback-label">模糊</span>
         </button>
-        <button class="feedback-btn feedback-btn--correct" @click="markAndNext('correct')">
+        <button
+          class="feedback-btn feedback-btn--correct"
+          @click="markAndNext('correct')"
+        >
           <span class="feedback-icon">✅</span>
           <span class="feedback-label">都会</span>
         </button>
       </div>
     </div>
+
+    <!-- ======= 编辑名称/备注弹窗 ======= -->
+    <n-modal
+      v-model:show="editModalVisible"
+      preset="card"
+      title="编辑听写记录"
+      :style="{ maxWidth: '420px' }"
+      :mask-closable="true"
+      :close-on-esc="true"
+    >
+      <div class="edit-modal-body">
+        <div class="edit-field">
+          <label class="edit-field-label">名称</label>
+          <n-input
+            v-model:value="editName"
+            placeholder="请输入听写记录名称"
+            clearable
+          />
+        </div>
+        <div class="edit-field">
+          <label class="edit-field-label">备注</label>
+          <n-input
+            v-model:value="editNote"
+            type="textarea"
+            placeholder="可选，为这次听写添加备注"
+            :autosize="{ minRows: 2, maxRows: 4 }"
+            clearable
+          />
+        </div>
+      </div>
+      <template #footer>
+        <div class="edit-modal-footer">
+          <n-button @click="editModalVisible = false">取消</n-button>
+          <n-button
+            type="primary"
+            @click="saveSessionInfo"
+          >保存</n-button>
+        </div>
+      </template>
+    </n-modal>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue'
-import { useRoute } from 'vue-router'
-import { NSpin, NButton } from 'naive-ui'
+import { ref, computed, onMounted, toRaw } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+import { NSpin, NButton, NModal, NInput } from 'naive-ui'
 import { db, type DictationSession, type SessionWord, type WordStatus } from '@/db'
+import WordStatusEditor from '@/components/WordStatusEditor.vue'
 
 const route = useRoute()
-
+const router = useRouter()
 // ============================================================
 //  状态
 // ============================================================
@@ -246,10 +390,45 @@ const sessionName = computed(() => session.value?.name || '未知计划')
 /** 当前词语 */
 const currentWord = computed(() => words.value[currentIndex.value] || null)
 
+/**
+ * 实时计算统计数据（基于 words 数组当前状态）
+ * 用计算属性替代手动维护的 stats，确保直接修改词汇状态后统计数字自动正确
+ */
+const computedStats = computed(() => {
+  const result = { correct: 0, fuzzy: 0, wrongPinyin: 0, wrongWriting: 0 }
+  for (const w of words.value) {
+    switch (w.status) {
+      case 'correct':
+        result.correct++
+        break
+      case 'fuzzy':
+        result.fuzzy++
+        break
+      case 'wrong_pinyin':
+        result.wrongPinyin++
+        break
+      case 'wrong_writing':
+        result.wrongWriting++
+        break
+    }
+  }
+  return result
+})
+
 /** 进度百分比 */
 const progressPercent = computed(() =>
   words.value.length > 0 ? (currentIndex.value / words.value.length) * 100 : 0,
 )
+
+/**
+ * 将响应式的 words 数组转为纯 JS 对象
+ * Vue3 的 ref/reactive 会将数组包装成 Proxy，
+ * 而 Dexie（IndexedDB）无法正确序列化 Proxy 对象，
+ * 必须先用 toRaw() 解除代理，再深拷贝确保嵌套对象也是纯对象
+ */
+function getPlainWords (): SessionWord[] {
+  return JSON.parse(JSON.stringify(toRaw(words.value)))
+}
 
 // ============================================================
 //  核心逻辑
@@ -260,7 +439,7 @@ const progressPercent = computed(() =>
  * 通过 URL 中的 sessionId 从 dictation_sessions 表读取
  * 若 session 有已完成的词，自动跳到第一个 status === 'new' 的词（恢复进度）
  */
-async function loadSession() {
+async function loadSession () {
   loading.value = true
   try {
     if (!sessionId.value) {
@@ -308,6 +487,12 @@ async function loadSession() {
     if (result.status === 'in_progress') {
       hasStarted.value = true
     }
+
+    // 如果 session 已经完成，直接展示完成状态（含统计和"新建计划"按钮）
+    if (result.status === 'completed') {
+      hasStarted.value = true
+      isFinished.value = true
+    }
   } finally {
     loading.value = false
   }
@@ -317,7 +502,7 @@ async function loadSession() {
  * 点击"开始听写"按钮
  * 根据用户的选择决定是否打乱顺序，更新 session 状态为 in_progress，然后进入听写状态
  */
-async function startDictation() {
+async function startDictation () {
   if (isShuffled.value) {
     shuffleArray(words.value)
   }
@@ -339,7 +524,7 @@ async function startDictation() {
  * Fisher-Yates 洗牌算法
  * 保证完美的均匀分布，每种排列等概率出现
  */
-function shuffleArray<T>(arr: T[]) {
+function shuffleArray<T> (arr: T[]) {
   for (let i = arr.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1))
     const temp = arr[i]!
@@ -352,7 +537,7 @@ function shuffleArray<T>(arr: T[]) {
  * 播放当前词语的语音
  * 使用浏览器原生 SpeechSynthesis API（MVP 阶段的兜底方案）
  */
-function playCurrent() {
+function playCurrent () {
   if (!currentWord.value || isPlaying.value) return
 
   window.speechSynthesis.cancel()
@@ -376,12 +561,12 @@ function playCurrent() {
 }
 
 /** 揭示答案 */
-function revealAnswer() {
+function revealAnswer () {
   answerRevealed.value = true
 }
 
 /** 上一个词 */
-function goPrev() {
+function goPrev () {
   if (currentIndex.value > 0) {
     currentIndex.value--
     answerRevealed.value = false
@@ -390,7 +575,7 @@ function goPrev() {
 }
 
 /** 下一个词（不标记状态，仅切换） */
-function goNext() {
+function goNext () {
   if (currentIndex.value < words.value.length - 1) {
     currentIndex.value++
     answerRevealed.value = false
@@ -408,7 +593,7 @@ function goNext() {
  * 4. 重置答案显示状态
  * 5. 移动到下一个词，或标记全部完成
  */
-async function markAndNext(status: WordStatus) {
+async function markAndNext (status: WordStatus) {
   if (!currentWord.value || !session.value?.id) return
 
   // 更新本地 words 数组中当前词的状态
@@ -436,14 +621,14 @@ async function markAndNext(status: WordStatus) {
     currentIndex.value++
     // 同步更新 session 到数据库（进行中状态）
     await db.dictation_sessions.update(session.value.id, {
-      words: words.value,
+      words: getPlainWords(),
     })
     setTimeout(() => playCurrent(), 300)
   } else {
     // 全部完成：标记 session 为 completed
     isFinished.value = true
     await db.dictation_sessions.update(session.value.id, {
-      words: words.value,
+      words: getPlainWords(),
       status: 'completed',
       completedAt: Date.now(),
     })
@@ -452,7 +637,7 @@ async function markAndNext(status: WordStatus) {
 }
 
 /** 重新开始本组听写 */
-async function restart() {
+async function restart () {
   // 重置所有词的状态为 new
   words.value.forEach((w) => (w.status = 'new'))
   currentIndex.value = 0
@@ -467,7 +652,7 @@ async function restart() {
   // 同步到数据库，状态恢复为 in_progress
   if (session.value?.id) {
     await db.dictation_sessions.update(session.value.id, {
-      words: words.value,
+      words: getPlainWords(),
       status: 'in_progress',
       completedAt: undefined,
     })
@@ -478,7 +663,7 @@ async function restart() {
 }
 
 /** 切换打乱/顺序模式（听写中途也可切换） */
-function toggleShuffle() {
+function toggleShuffle () {
   isShuffled.value = !isShuffled.value
   if (isShuffled.value) {
     shuffleArray(words.value)
@@ -488,6 +673,82 @@ function toggleShuffle() {
   }
   currentIndex.value = 0
   answerRevealed.value = false
+}
+
+/**
+ * 处理 WordStatusEditor 组件的状态变更事件
+ * 如果点击的状态与当前状态相同，则重置为 new（取消标记）
+ * 否则设为新状态，然后同步到数据库
+ */
+async function handleWordStatusUpdate (index: number, status: WordStatus) {
+  if (!session.value?.id) return
+
+  // 如果点击的状态和当前状态相同，则切换回 new（取消标记）
+  const currentStatus = words.value[index]!.status
+  words.value[index]!.status = currentStatus === status ? 'new' : status
+
+  // 同步到数据库
+  await db.dictation_sessions.update(session.value.id, {
+    words: getPlainWords(),
+  })
+}
+
+// ============================================================
+//  编辑名称/备注弹窗
+// ============================================================
+
+const editModalVisible = ref(false)
+const editName = ref('')
+const editNote = ref('')
+
+/** 打开编辑弹窗，用当前 session 的值初始化表单 */
+function openEditModal () {
+  if (!session.value) return
+  editName.value = session.value.name
+  editNote.value = session.value.note || ''
+  editModalVisible.value = true
+}
+
+/** 保存修改到数据库并更新本地状态 */
+async function saveSessionInfo () {
+  if (!session.value?.id || !editName.value.trim()) return
+
+  const newName = editName.value.trim()
+  const newNote = editNote.value.trim() || undefined
+
+  await db.dictation_sessions.update(session.value.id, {
+    name: newName,
+    note: newNote,
+  })
+
+  // 更新本地状态
+  session.value.name = newName
+  session.value.note = newNote
+
+  editModalVisible.value = false
+}
+
+/**
+ * 从当前已完成的听写记录跳转到新建计划页
+ * 通过 URL query 传递 sourceSessionId，DictationPlanPage 会自动切到历史模式并预选该记录
+ */
+function createPlanFromThis () {
+  if (!session.value?.id) return
+  router.push({
+    name: 'dictation-plan',
+    query: { sourceSessionId: session.value.id },
+  })
+}
+
+/** 将上次状态码转为中文文本 */
+function prevStatusText (s: string): string {
+  const map: Record<string, string> = {
+    wrong_pinyin: '不会拼音',
+    wrong_writing: '不会书写',
+    fuzzy: '模糊',
+    correct: '都会',
+  }
+  return map[s] || s
 }
 
 // ---- 生命周期 ----
@@ -798,6 +1059,7 @@ onMounted(() => {
 
 .answer-content {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   min-height: 120px;
@@ -805,7 +1067,15 @@ onMounted(() => {
   border-radius: var(--radius-xl);
   box-shadow: var(--shadow-md);
   padding: var(--space-xl);
+  gap: var(--space-xs);
   animation: fadeInUp 0.4s ease;
+}
+
+.answer-pinyin {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--color-text-muted);
+  letter-spacing: 0.1em;
 }
 
 .answer-text {
@@ -814,6 +1084,34 @@ onMounted(() => {
   font-weight: 400;
   color: var(--color-text-primary);
   letter-spacing: 0.15em;
+}
+
+.answer-prev-status {
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 2px 10px;
+  border-radius: 999px;
+  margin-top: var(--space-xs);
+}
+
+.answer-prev-status--wrong_pinyin {
+  color: #e74c3c;
+  background: rgba(235, 87, 87, 0.1);
+}
+
+.answer-prev-status--wrong_writing {
+  color: #e07c39;
+  background: rgba(224, 124, 57, 0.1);
+}
+
+.answer-prev-status--fuzzy {
+  color: #c89b2a;
+  background: rgba(242, 201, 76, 0.15);
+}
+
+.answer-prev-status--correct {
+  color: #27ae60;
+  background: rgba(39, 174, 96, 0.1);
 }
 
 /* =======================================
@@ -941,12 +1239,15 @@ onMounted(() => {
 .finish-stat--correct {
   color: var(--color-accent-green);
 }
+
 .finish-stat--fuzzy {
   color: var(--color-accent-yellow);
 }
+
 .finish-stat--wrong-pinyin {
   color: var(--color-accent-red);
 }
+
 .finish-stat--wrong-writing {
   color: #e07c39;
 }
@@ -978,6 +1279,69 @@ onMounted(() => {
 
 .empty-icon {
   font-size: 3rem;
+}
+
+/* =======================================
+   编辑触发器（名称旁的编辑按钮）
+   ======================================= */
+.edit-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  cursor: pointer;
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--radius-md);
+  transition:
+    background var(--transition-fast),
+    transform var(--transition-bounce);
+}
+
+.edit-trigger:hover {
+  background: rgba(242, 153, 74, 0.08);
+  transform: scale(1.02);
+}
+
+.edit-trigger-name {
+  font-size: 0.95rem;
+  color: var(--color-text-secondary);
+  font-weight: 500;
+}
+
+.edit-trigger-icon {
+  font-size: 0.85rem;
+  opacity: 0.5;
+  transition: opacity var(--transition-fast);
+}
+
+.edit-trigger:hover .edit-trigger-icon {
+  opacity: 1;
+}
+
+/* =======================================
+   编辑弹窗
+   ======================================= */
+.edit-modal-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+.edit-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.edit-field-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+}
+
+.edit-modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-sm);
 }
 
 .dictation-active {
