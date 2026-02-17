@@ -60,6 +60,23 @@
           >
             <div class="library-card-top">
               <span class="library-card-icon">📖</span>
+              <div
+                class="card-actions"
+                @click.stop
+              >
+                <n-dropdown
+                  trigger="hover"
+                  :options="cardOptions"
+                  @select="(key) => handleSelectGroupAction(key, group)"
+                >
+                  <n-button
+                    text
+                    style="font-size: 1.2rem"
+                  >⋮</n-button>
+                </n-dropdown>
+              </div>
+            </div>
+            <div class="library-card-info">
               <n-tag
                 size="small"
                 round
@@ -205,12 +222,15 @@ import {
   NSpace,
   NPopconfirm,
   NPagination,
+  NDropdown,
   useMessage,
+  useDialog,
 } from 'naive-ui'
 import type { DataTableColumns } from 'naive-ui'
 import { db, type Word } from '@/db'
 
 const message = useMessage()
+const dialog = useDialog()
 
 // ============================================================
 //  第一层：词库分组卡片
@@ -269,6 +289,37 @@ async function loadGroups () {
   }
 
   allGroups.value = Array.from(map.values()).sort((a, b) => a.path.localeCompare(b.path))
+}
+
+const cardOptions = [
+  { label: '删除词库', key: 'delete' },
+]
+
+function handleSelectGroupAction (key: string, group: WordGroup) {
+  if (key === 'delete') {
+    handleDeleteGroup(group)
+  }
+}
+
+function handleDeleteGroup (group: WordGroup) {
+  dialog.warning({
+    title: '确认删除',
+    content: `确定要删除词库「${group.displayName}」吗？这将删除该词库下的所有文字。`,
+    positiveText: '确定',
+    negativeText: '取消',
+    onPositiveClick: async () => {
+      try {
+        // 删除该路径下的所有文字
+        await db.words.where('path').equals(group.path).delete()
+        message.success(`已删除词库「${group.displayName}」`)
+        // 重新加载分组
+        await loadGroups()
+      } catch (err) {
+        console.error('删除词库失败:', err)
+        message.error('删除词库失败')
+      }
+    },
+  })
 }
 
 // ============================================================
@@ -580,7 +631,20 @@ onMounted(() => {
 .library-card-top {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
+  margin-bottom: var(--space-xs);
+}
+
+.card-actions {
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.library-card:hover .card-actions {
+  opacity: 1;
+}
+
+.library-card-info {
   margin-bottom: var(--space-md);
 }
 
