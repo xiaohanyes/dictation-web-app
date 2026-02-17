@@ -75,13 +75,13 @@
         <div class="finish-stat">
           <span class="finish-stat-value finish-stat--wrong-pinyin">{{
             computedStats.wrongPinyin
-          }}</span>
+            }}</span>
           <span class="finish-stat-label">不会拼音</span>
         </div>
         <div class="finish-stat">
           <span class="finish-stat-value finish-stat--wrong-writing">{{
             computedStats.wrongWriting
-          }}</span>
+            }}</span>
           <span class="finish-stat-label">不会书写</span>
         </div>
       </div>
@@ -97,6 +97,13 @@
           round
           @click="createPlanFromThis"
         > 📋 从此记录新建计划 </n-button>
+        <n-button
+          v-if="practiceWords.length > 0"
+          type="info"
+          size="large"
+          round
+          @click="openPracticeModal"
+        > ✍️ 练习错题（{{ practiceWords.length }}） </n-button>
         <n-button
           size="large"
           round
@@ -327,6 +334,13 @@
         </div>
       </template>
     </n-modal>
+
+    <!-- 练习错题弹窗 -->
+    <HanziPracticeModal
+      v-model:visible="practiceModalVisible"
+      :words="practiceWords"
+      style="margin-bottom: 25px;"
+    />
   </div>
 </template>
 
@@ -336,6 +350,7 @@ import { useRoute, useRouter } from 'vue-router'
 import { NSpin, NButton, NModal, NInput } from 'naive-ui'
 import { db, type DictationSession, type SessionWord, type WordStatus } from '@/db'
 import WordStatusEditor from '@/components/WordStatusEditor.vue'
+import HanziPracticeModal from '@/components/HanziPracticeModal.vue'
 
 const route = useRoute()
 const router = useRouter()
@@ -364,6 +379,34 @@ const answerRevealed = ref(false)
 const isPlaying = ref(false)
 const isShuffled = ref(true)
 const isFinished = ref(false)
+
+// 练习错题相关
+const practiceModalVisible = ref(false)
+const practiceWords = computed(() => {
+  const incorrect = words.value.filter(w => w.status !== 'correct')
+  const map = new Map<string, string>()
+
+  incorrect.forEach(w => {
+    // 简单的按字拆分，尝试匹配拼音
+    const chars = w.content.split('')
+    const pinyins = w.pinyin.trim().split(/\s+/) // 假设拼音用空格分隔
+
+    chars.forEach((char, idx) => {
+      if (!char.trim()) return
+      // 只有当拼音数量与字数一致时才尝试匹配，否则留空
+      const p = (pinyins.length === chars.length) ? (pinyins[idx] || '') : ''
+      if (!map.has(char)) {
+        map.set(char, p)
+      }
+    })
+  })
+
+  return Array.from(map.entries()).map(([char, pinyin]) => ({ char, pinyin }))
+})
+
+function openPracticeModal () {
+  practiceModalVisible.value = true
+}
 
 /**
  * 是否已经开始听写
