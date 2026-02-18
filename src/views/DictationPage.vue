@@ -113,6 +113,7 @@
 
       <!-- 词汇状态编辑列表 -->
       <WordStatusEditor
+        :style="{ visibility: practiceModalVisible ? 'hidden' : 'visible' }"
         :words="words"
         @update:status="handleWordStatusUpdate"
       />
