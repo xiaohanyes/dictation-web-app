@@ -10,82 +10,99 @@
     :mask-style="{ backgroundColor: 'rgba(0,0,0,0.95)' }"
   >
     <div class="practice-container">
-      <!-- 顶部信息 -->
-      <div class="word-info">
-        <div class="pinyin">{{ currentPinyin }}</div>
-        <div class="progress">
-          进度: {{ currentIndex + 1 }} / {{ words.length }}
+      <div class="left-panel">
+        <!-- 操作按钮 -->
+        <div class="controls">
+          <n-space
+            vertical
+            align="center"
+            size="large"
+            item-style="width: 100%"
+          >
+            <n-button
+              @click="animate"
+              :disabled="loading || isQuizzing"
+            >
+              🎥 播放笔顺
+            </n-button>
+            <n-button
+              :type="isQuizzing ? 'error' : 'primary'"
+              @click="toggleQuiz"
+              :disabled="loading"
+            >
+              {{ isQuizzing ? '❌ 取消测试' : '✍️ 书写测试' }}
+            </n-button>
+            <n-button
+              type="info"
+              ghost
+              @click="toggleOutline"
+              :disabled="loading"
+            >
+              {{ showOutline ? '🙈 隐藏轮廓' : '👁️ 显示轮廓' }}
+            </n-button>
+          </n-space>
+        </div>
+
+        <!-- 底部导航 -->
+        <div class="footer-nav">
+          <n-space
+            vertical
+            align="center"
+            size="large"
+            item-style="width: 100%"
+          >
+            <n-button
+              @click="prev"
+              :disabled="currentIndex === 0 || isQuizzing"
+            >
+              ⬅️ 上一个字
+            </n-button>
+            <n-button
+              @click="next"
+              :disabled="currentIndex === words.length - 1 || isQuizzing"
+              type="primary"
+            >
+              ➡️ 下一个字
+            </n-button>
+            <n-button
+              @click="close"
+              type="error"
+              ghost
+            >
+              ❌ 结束练习
+            </n-button>
+          </n-space>
         </div>
       </div>
 
-      <!-- 汉字书写区域 -->
-      <div class="canvas-wrapper">
-        <div
-          ref="writerTarget"
-          class="writer-target"
-        ></div>
-        <div
-          v-if="loading"
-          class="loading-overlay"
-        >
-          <n-spin size="large" />
+      <div class="right-panel">
+        <!-- 顶部信息 -->
+        <div class="word-info">
+          <div class="pinyin">{{ currentPinyin }}</div>
+          <div class="progress">
+            进度: {{ currentIndex + 1 }} / {{ words.length }}
+          </div>
         </div>
-        <div
-          v-if="quizStatus"
-          :class="['quiz-status', quizStatus.type]"
-        >
-          {{ quizStatus.text }}
+
+        <!-- 汉字书写区域 -->
+        <div class="canvas-wrapper">
+          <div
+            ref="writerTarget"
+            class="writer-target"
+          ></div>
+          <div
+            v-if="loading"
+            class="loading-overlay"
+          >
+            <n-spin size="large" />
+          </div>
+          <div
+            v-if="quizStatus"
+            :class="['quiz-status', quizStatus.type]"
+          >
+            {{ quizStatus.text }}
+          </div>
         </div>
-      </div>
-
-      <!-- 操作按钮 -->
-      <div class="controls">
-        <n-space
-          justify="center"
-          size="large"
-        >
-          <n-button
-            @click="animate"
-            :disabled="loading || isQuizzing"
-          >
-            🎥 播放笔顺
-          </n-button>
-          <n-button
-            :type="isQuizzing ? 'error' : 'primary'"
-            @click="toggleQuiz"
-            :disabled="loading"
-          >
-            {{ isQuizzing ? '❌ 取消测试' : '✍️ 书写测试' }}
-          </n-button>
-          <n-button
-            type="info"
-            ghost
-            @click="toggleOutline"
-            :disabled="loading"
-          >
-            {{ showOutline ? '🙈 隐藏轮廓' : '👁️ 显示轮廓' }}
-          </n-button>
-        </n-space>
-      </div>
-
-      <!-- 底部导航 -->
-      <div class="footer-nav">
-        <n-button
-          @click="prev"
-          :disabled="currentIndex === 0 || isQuizzing"
-        >
-          ⬅️ 上一个
-        </n-button>
-        <n-button @click="close">
-          ❌ 结束练习
-        </n-button>
-        <n-button
-          @click="next"
-          :disabled="currentIndex === words.length - 1 || isQuizzing"
-          type="primary"
-        >
-          下一个 ➡️
-        </n-button>
       </div>
     </div>
   </n-modal>
@@ -282,18 +299,38 @@ function close () {
 </script>
 
 <style scoped>
-.hanzi-modal {
-  height: 100px;
-  width: 100px;
-  /* max-width: 600px; */
-}
+/* .hanzi-modal controlled by n-modal size */
 
 .practice-container {
   display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 40px;
+  padding: 20px 40px;
+  height: 100%;
+  margin: 5% 0;
+}
+
+.left-panel {
+  display: flex;
   flex-direction: column;
+  justify-content: space-between;
   align-items: center;
   gap: 20px;
-  padding: 20px 0;
+  flex: 1;
+  /* background-color: #e8e3e3; */
+}
+
+.right-panel {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  width: 60%;
+  padding-top: 40px;
+  /* background-color: #f3efef; */
 }
 
 .word-info {
@@ -371,13 +408,18 @@ function close () {
 }
 
 .controls {
-  width: 100%;
+  /* width: 100%; */
+  /* background-color: aliceblue; */
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
 .footer-nav {
   display: flex;
-  justify-content: space-between;
-  width: 100%;
+  flex-direction: column;
+  gap: 12px;
+  /* width: 100%; */
   margin-top: 20px;
   border-top: 1px solid var(--color-border);
   padding-top: 20px;

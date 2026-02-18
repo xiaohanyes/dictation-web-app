@@ -75,13 +75,13 @@
         <div class="finish-stat">
           <span class="finish-stat-value finish-stat--wrong-pinyin">{{
             computedStats.wrongPinyin
-          }}</span>
+            }}</span>
           <span class="finish-stat-label">不会拼音</span>
         </div>
         <div class="finish-stat">
           <span class="finish-stat-value finish-stat--wrong-writing">{{
             computedStats.wrongWriting
-          }}</span>
+            }}</span>
           <span class="finish-stat-label">不会书写</span>
         </div>
       </div>
@@ -339,7 +339,7 @@
     <HanziPracticeModal
       v-model:visible="practiceModalVisible"
       :words="practiceWords"
-      style="margin-bottom: 25px;"
+      style="margin-bottom: 1%;margin-left: 1%;margin-right: 1%;"
     />
   </div>
 </template>
