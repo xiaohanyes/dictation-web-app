@@ -291,7 +291,6 @@ const groupedPreview = computed(() => {
   }
   return Array.from(map.entries())
     .map(([path, entries]) => ({ path, entries }))
-    .sort((a, b) => a.path.localeCompare(b.path))
 })
 
 watch([importedData, levelPrefix], () => {
