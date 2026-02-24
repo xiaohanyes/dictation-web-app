@@ -1,0 +1,1933 @@
+[
+    {
+        "unit": "识字表 第一单元",
+        "content": [
+            {
+                "class": "识字1",
+                "chars": [
+                    {
+                        "char": "天",
+                        "pinyin": "tiān"
+                    },
+                    {
+                        "char": "地",
+                        "pinyin": "dì"
+                    },
+                    {
+                        "char": "人",
+                        "pinyin": "rén"
+                    },
+                    {
+                        "char": "你",
+                        "pinyin": "nǐ"
+                    },
+                    {
+                        "char": "我",
+                        "pinyin": "wǒ"
+                    },
+                    {
+                        "char": "他",
+                        "pinyin": "tā"
+                    }
+                ]
+            },
+            {
+                "class": "识字2",
+                "chars": [
+                    {
+                        "char": "一",
+                        "pinyin": "yī"
+                    },
+                    {
+                        "char": "二",
+                        "pinyin": "èr"
+                    },
+                    {
+                        "char": "三",
+                        "pinyin": "sān"
+                    },
+                    {
+                        "char": "四",
+                        "pinyin": "sì"
+                    },
+                    {
+                        "char": "五",
+                        "pinyin": "wǔ"
+                    },
+                    {
+                        "char": "上",
+                        "pinyin": "shàng"
+                    },
+                    {
+                        "char": "下",
+                        "pinyin": "xià"
+                    }
+                ]
+            },
+            {
+                "class": "识字3",
+                "chars": [
+                    {
+                        "char": "口",
+                        "pinyin": "kǒu"
+                    },
+                    {
+                        "char": "耳",
+                        "pinyin": "ěr"
+                    },
+                    {
+                        "char": "目",
+                        "pinyin": "mù"
+                    },
+                    {
+                        "char": "手",
+                        "pinyin": "shǒu"
+                    },
+                    {
+                        "char": "足",
+                        "pinyin": "zú"
+                    },
+                    {
+                        "char": "站",
+                        "pinyin": "zhàn"
+                    },
+                    {
+                        "char": "坐",
+                        "pinyin": "zuò"
+                    }
+                ]
+            },
+            {
+                "class": "识字4",
+                "chars": [
+                    {
+                        "char": "日",
+                        "pinyin": "rì"
+                    },
+                    {
+                        "char": "月",
+                        "pinyin": "yuè"
+                    },
+                    {
+                        "char": "山",
+                        "pinyin": "shān"
+                    },
+                    {
+                        "char": "川",
+                        "pinyin": "chuān"
+                    },
+                    {
+                        "char": "水",
+                        "pinyin": "shuǐ"
+                    },
+                    {
+                        "char": "火",
+                        "pinyin": "huǒ"
+                    },
+                    {
+                        "char": "田",
+                        "pinyin": "tián"
+                    },
+                    {
+                        "char": "禾",
+                        "pinyin": "hé"
+                    }
+                ]
+            },
+            {
+                "class": "语文园地一",
+                "chars": [
+                    {
+                        "char": "六",
+                        "pinyin": "liù"
+                    },
+                    {
+                        "char": "七",
+                        "pinyin": "qī"
+                    },
+                    {
+                        "char": "八",
+                        "pinyin": "bā"
+                    },
+                    {
+                        "char": "九",
+                        "pinyin": "jiǔ"
+                    },
+                    {
+                        "char": "十",
+                        "pinyin": "shí"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "unit": "识字表 第二单元",
+        "content": [
+            {
+                "class": "汉语拼音3",
+                "chars": [
+                    {
+                        "char": "爸",
+                        "pinyin": "bà"
+                    },
+                    {
+                        "char": "妈",
+                        "pinyin": "mā"
+                    }
+                ]
+            },
+            {
+                "class": "汉语拼音4",
+                "chars": [
+                    {
+                        "char": "大",
+                        "pinyin": "dà"
+                    },
+                    {
+                        "char": "马",
+                        "pinyin": "mǎ"
+                    },
+                    {
+                        "char": "路",
+                        "pinyin": "lù"
+                    },
+                    {
+                        "char": "土",
+                        "pinyin": "tǔ"
+                    }
+                ]
+            },
+            {
+                "class": "语文园地二",
+                "chars": [
+                    {
+                        "char": "本",
+                        "pinyin": "běn"
+                    },
+                    {
+                        "char": "学",
+                        "pinyin": "xué"
+                    },
+                    {
+                        "char": "校",
+                        "pinyin": "xiào"
+                    },
+                    {
+                        "char": "班",
+                        "pinyin": "bān"
+                    },
+                    {
+                        "char": "级",
+                        "pinyin": "jí"
+                    },
+                    {
+                        "char": "姓",
+                        "pinyin": "xìng"
+                    },
+                    {
+                        "char": "名",
+                        "pinyin": "míng"
+                    },
+                    {
+                        "char": "王",
+                        "pinyin": "wáng"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "unit": "识字表 第三单元",
+        "content": [
+            {
+                "class": "汉语拼音5",
+                "chars": [
+                    {
+                        "char": "哥",
+                        "pinyin": "gē"
+                    },
+                    {
+                        "char": "弟",
+                        "pinyin": "dì"
+                    },
+                    {
+                        "char": "画",
+                        "pinyin": "huà"
+                    },
+                    {
+                        "char": "花",
+                        "pinyin": "huā"
+                    }
+                ]
+            },
+            {
+                "class": "汉语拼音6",
+                "chars": [
+                    {
+                        "char": "打",
+                        "pinyin": "dǎ"
+                    },
+                    {
+                        "char": "棋",
+                        "pinyin": "qí"
+                    },
+                    {
+                        "char": "积",
+                        "pinyin": "jī"
+                    },
+                    {
+                        "char": "木",
+                        "pinyin": "mù"
+                    }
+                ]
+            },
+            {
+                "class": "汉语拼音7",
+                "chars": [
+                    {
+                        "char": "字",
+                        "pinyin": "zì"
+                    },
+                    {
+                        "char": "词",
+                        "pinyin": "cí"
+                    },
+                    {
+                        "char": "句",
+                        "pinyin": "jù"
+                    },
+                    {
+                        "char": "子",
+                        "pinyin": "zǐ"
+                    }
+                ]
+            },
+            {
+                "class": "汉语拼音8",
+                "chars": [
+                    {
+                        "char": "桌",
+                        "pinyin": "zhuō"
+                    },
+                    {
+                        "char": "纸",
+                        "pinyin": "zhǐ"
+                    },
+                    {
+                        "char": "读",
+                        "pinyin": "dú"
+                    },
+                    {
+                        "char": "书",
+                        "pinyin": "shū"
+                    }
+                ]
+            },
+            {
+                "class": "汉语拼音9",
+                "chars": [
+                    {
+                        "char": "鱼",
+                        "pinyin": "yú"
+                    },
+                    {
+                        "char": "鸭",
+                        "pinyin": "yā"
+                    },
+                    {
+                        "char": "乌",
+                        "pinyin": "wū"
+                    },
+                    {
+                        "char": "鸦",
+                        "pinyin": "yā"
+                    }
+                ]
+            },
+            {
+                "class": "语文园地三",
+                "chars": [
+                    {
+                        "char": "午",
+                        "pinyin": "wǔ"
+                    },
+                    {
+                        "char": "星",
+                        "pinyin": "xīng"
+                    },
+                    {
+                        "char": "期",
+                        "pinyin": "qī"
+                    },
+                    {
+                        "char": "语",
+                        "pinyin": "yǔ"
+                    },
+                    {
+                        "char": "文",
+                        "pinyin": "wén"
+                    },
+                    {
+                        "char": "数",
+                        "pinyin": "shù"
+                    },
+                    {
+                        "char": "写",
+                        "pinyin": "xiě"
+                    },
+                    {
+                        "char": "会",
+                        "pinyin": "huì"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "unit": "识字表 第四单元",
+        "content": [
+            {
+                "class": "识字10",
+                "chars": [
+                    {
+                        "char": "白",
+                        "pinyin": "bái"
+                    },
+                    {
+                        "char": "菜",
+                        "pinyin": "cài"
+                    },
+                    {
+                        "char": "西",
+                        "pinyin": "xī"
+                    },
+                    {
+                        "char": "瓜",
+                        "pinyin": "guā"
+                    },
+                    {
+                        "char": "果",
+                        "pinyin": "guǒ"
+                    }
+                ]
+            },
+            {
+                "class": "识字11",
+                "chars": [
+                    {
+                        "char": "小",
+                        "pinyin": "xiǎo"
+                    },
+                    {
+                        "char": "桥",
+                        "pinyin": "qiáo"
+                    },
+                    {
+                        "char": "流",
+                        "pinyin": "liú"
+                    },
+                    {
+                        "char": "柳",
+                        "pinyin": "liǔ"
+                    }
+                ]
+            },
+            {
+                "class": "识字12",
+                "chars": [
+                    {
+                        "char": "开",
+                        "pinyin": "kāi"
+                    },
+                    {
+                        "char": "雪",
+                        "pinyin": "xuě"
+                    },
+                    {
+                        "char": "夜",
+                        "pinyin": "yè"
+                    },
+                    {
+                        "char": "色",
+                        "pinyin": "sè"
+                    },
+                    {
+                        "char": "美",
+                        "pinyin": "měi"
+                    }
+                ]
+            },
+            {
+                "class": "识字13",
+                "chars": [
+                    {
+                        "char": "蓝",
+                        "pinyin": "lán"
+                    },
+                    {
+                        "char": "云",
+                        "pinyin": "yún"
+                    },
+                    {
+                        "char": "草",
+                        "pinyin": "cǎo"
+                    },
+                    {
+                        "char": "原",
+                        "pinyin": "yuán"
+                    }
+                ]
+            },
+            {
+                "class": "识字14",
+                "chars": [
+                    {
+                        "char": "冰",
+                        "pinyin": "bīng"
+                    },
+                    {
+                        "char": "自",
+                        "pinyin": "zì"
+                    },
+                    {
+                        "char": "行",
+                        "pinyin": "xíng"
+                    },
+                    {
+                        "char": "车",
+                        "pinyin": "chē"
+                    }
+                ]
+            },
+            {
+                "class": "语文园地四",
+                "chars": [
+                    {
+                        "char": "晚",
+                        "pinyin": "wǎn"
+                    },
+                    {
+                        "char": "昨",
+                        "pinyin": "zuó"
+                    },
+                    {
+                        "char": "今",
+                        "pinyin": "jīn"
+                    },
+                    {
+                        "char": "明",
+                        "pinyin": "míng"
+                    },
+                    {
+                        "char": "个",
+                        "pinyin": "gè"
+                    },
+                    {
+                        "char": "这",
+                        "pinyin": "zhè"
+                    },
+                    {
+                        "char": "去",
+                        "pinyin": "qù"
+                    },
+                    {
+                        "char": "年",
+                        "pinyin": "nián"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "unit": "识字表 第五单元",
+        "content": [
+            {
+                "class": "阅读1",
+                "chars": [
+                    {
+                        "char": "秋",
+                        "pinyin": "qiū"
+                    },
+                    {
+                        "char": "气",
+                        "pinyin": "qì"
+                    },
+                    {
+                        "char": "了",
+                        "pinyin": "le"
+                    },
+                    {
+                        "char": "树",
+                        "pinyin": "shù"
+                    },
+                    {
+                        "char": "叶",
+                        "pinyin": "yè"
+                    },
+                    {
+                        "char": "黄",
+                        "pinyin": "huáng"
+                    },
+                    {
+                        "char": "片",
+                        "pinyin": "piàn"
+                    },
+                    {
+                        "char": "从",
+                        "pinyin": "cóng"
+                    },
+                    {
+                        "char": "来",
+                        "pinyin": "lái"
+                    },
+                    {
+                        "char": "飞",
+                        "pinyin": "fēi"
+                    }
+                ]
+            },
+            {
+                "class": "阅读2",
+                "chars": [
+                    {
+                        "char": "江",
+                        "pinyin": "jiāng"
+                    },
+                    {
+                        "char": "南",
+                        "pinyin": "nán"
+                    },
+                    {
+                        "char": "可",
+                        "pinyin": "kě"
+                    },
+                    {
+                        "char": "采",
+                        "pinyin": "cǎi"
+                    },
+                    {
+                        "char": "莲",
+                        "pinyin": "lián"
+                    },
+                    {
+                        "char": "戏",
+                        "pinyin": "xì"
+                    },
+                    {
+                        "char": "间",
+                        "pinyin": "jiān"
+                    },
+                    {
+                        "char": "东",
+                        "pinyin": "dōng"
+                    },
+                    {
+                        "char": "北",
+                        "pinyin": "běi"
+                    }
+                ]
+            },
+            {
+                "class": "阅读3",
+                "chars": [
+                    {
+                        "char": "的",
+                        "pinyin": "de"
+                    },
+                    {
+                        "char": "家",
+                        "pinyin": "jiā"
+                    },
+                    {
+                        "char": "鸡",
+                        "pinyin": "jī"
+                    },
+                    {
+                        "char": "竹",
+                        "pinyin": "zhú"
+                    },
+                    {
+                        "char": "牙",
+                        "pinyin": "yá"
+                    },
+                    {
+                        "char": "用",
+                        "pinyin": "yòng"
+                    },
+                    {
+                        "char": "几",
+                        "pinyin": "jǐ"
+                    },
+                    {
+                        "char": "步",
+                        "pinyin": "bù"
+                    },
+                    {
+                        "char": "没",
+                        "pinyin": "méi"
+                    },
+                    {
+                        "char": "参",
+                        "pinyin": "cān"
+                    },
+                    {
+                        "char": "加",
+                        "pinyin": "jiā"
+                    }
+                ]
+            },
+            {
+                "class": "阅读4",
+                "chars": [
+                    {
+                        "char": "鸟",
+                        "pinyin": "niǎo"
+                    },
+                    {
+                        "char": "说",
+                        "pinyin": "shuō"
+                    },
+                    {
+                        "char": "是",
+                        "pinyin": "shì"
+                    },
+                    {
+                        "char": "春",
+                        "pinyin": "chūn"
+                    },
+                    {
+                        "char": "青",
+                        "pinyin": "qīng"
+                    },
+                    {
+                        "char": "蛙",
+                        "pinyin": "wā"
+                    },
+                    {
+                        "char": "夏",
+                        "pinyin": "xià"
+                    },
+                    {
+                        "char": "着",
+                        "pinyin": "zhe"
+                    },
+                    {
+                        "char": "皮",
+                        "pinyin": "pí"
+                    },
+                    {
+                        "char": "地",
+                        "pinyin": "de"
+                    },
+                    {
+                        "char": "就",
+                        "pinyin": "jiù"
+                    },
+                    {
+                        "char": "冬",
+                        "pinyin": "dōng"
+                    }
+                ]
+            },
+            {
+                "class": "语文园地五",
+                "chars": [
+                    {
+                        "char": "男",
+                        "pinyin": "nán"
+                    },
+                    {
+                        "char": "女",
+                        "pinyin": "nǚ"
+                    },
+                    {
+                        "char": "关",
+                        "pinyin": "guān"
+                    },
+                    {
+                        "char": "正",
+                        "pinyin": "zhèng"
+                    },
+                    {
+                        "char": "反",
+                        "pinyin": "fǎn"
+                    },
+                    {
+                        "char": "先",
+                        "pinyin": "xiān"
+                    },
+                    {
+                        "char": "后",
+                        "pinyin": "hòu"
+                    },
+                    {
+                        "char": "内",
+                        "pinyin": "nèi"
+                    },
+                    {
+                        "char": "外",
+                        "pinyin": "wài"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "unit": "识字表 第六单元",
+        "content": [
+            {
+                "class": "识字5",
+                "chars": [
+                    {
+                        "char": "对",
+                        "pinyin": "duì"
+                    },
+                    {
+                        "char": "歌",
+                        "pinyin": "gē"
+                    },
+                    {
+                        "char": "雨",
+                        "pinyin": "yǔ"
+                    },
+                    {
+                        "char": "风",
+                        "pinyin": "fēng"
+                    },
+                    {
+                        "char": "虫",
+                        "pinyin": "chóng"
+                    },
+                    {
+                        "char": "清",
+                        "pinyin": "qīng"
+                    },
+                    {
+                        "char": "绿",
+                        "pinyin": "lǜ"
+                    },
+                    {
+                        "char": "桃",
+                        "pinyin": "táo"
+                    },
+                    {
+                        "char": "红",
+                        "pinyin": "hóng"
+                    }
+                ]
+            },
+            {
+                "class": "识字6",
+                "chars": [
+                    {
+                        "char": "力",
+                        "pinyin": "lì"
+                    },
+                    {
+                        "char": "尖",
+                        "pinyin": "jiān"
+                    },
+                    {
+                        "char": "尘",
+                        "pinyin": "chén"
+                    },
+                    {
+                        "char": "众",
+                        "pinyin": "zhòng"
+                    },
+                    {
+                        "char": "双",
+                        "pinyin": "shuāng"
+                    },
+                    {
+                        "char": "林",
+                        "pinyin": "lín"
+                    },
+                    {
+                        "char": "森",
+                        "pinyin": "sēn"
+                    },
+                    {
+                        "char": "不",
+                        "pinyin": "bù"
+                    },
+                    {
+                        "char": "条",
+                        "pinyin": "tiáo"
+                    },
+                    {
+                        "char": "心",
+                        "pinyin": "xīn"
+                    },
+                    {
+                        "char": "金",
+                        "pinyin": "jīn"
+                    }
+                ]
+            },
+            {
+                "class": "识字7",
+                "chars": [
+                    {
+                        "char": "包",
+                        "pinyin": "bāo"
+                    },
+                    {
+                        "char": "尺",
+                        "pinyin": "chǐ"
+                    },
+                    {
+                        "char": "作",
+                        "pinyin": "zuò"
+                    },
+                    {
+                        "char": "业",
+                        "pinyin": "yè"
+                    },
+                    {
+                        "char": "笔",
+                        "pinyin": "bǐ"
+                    },
+                    {
+                        "char": "刀",
+                        "pinyin": "dāo"
+                    },
+                    {
+                        "char": "宝",
+                        "pinyin": "bǎo"
+                    },
+                    {
+                        "char": "贝",
+                        "pinyin": "bèi"
+                    },
+                    {
+                        "char": "少",
+                        "pinyin": "shǎo"
+                    },
+                    {
+                        "char": "课",
+                        "pinyin": "kè"
+                    },
+                    {
+                        "char": "早",
+                        "pinyin": "zǎo"
+                    }
+                ]
+            },
+            {
+                "class": "识字8",
+                "chars": [
+                    {
+                        "char": "升",
+                        "pinyin": "shēng"
+                    },
+                    {
+                        "char": "国",
+                        "pinyin": "guó"
+                    },
+                    {
+                        "char": "旗",
+                        "pinyin": "qí"
+                    },
+                    {
+                        "char": "中",
+                        "pinyin": "zhōng"
+                    },
+                    {
+                        "char": "们",
+                        "pinyin": "men"
+                    },
+                    {
+                        "char": "声",
+                        "pinyin": "shēng"
+                    },
+                    {
+                        "char": "起",
+                        "pinyin": "qǐ"
+                    },
+                    {
+                        "char": "多",
+                        "pinyin": "duō"
+                    },
+                    {
+                        "char": "么",
+                        "pinyin": "me"
+                    },
+                    {
+                        "char": "向",
+                        "pinyin": "xiàng"
+                    },
+                    {
+                        "char": "立",
+                        "pinyin": "lì"
+                    }
+                ]
+            },
+            {
+                "class": "语文园地六",
+                "chars": [
+                    {
+                        "char": "老",
+                        "pinyin": "lǎo"
+                    },
+                    {
+                        "char": "师",
+                        "pinyin": "shī"
+                    },
+                    {
+                        "char": "工",
+                        "pinyin": "gōng"
+                    },
+                    {
+                        "char": "厂",
+                        "pinyin": "chǎng"
+                    },
+                    {
+                        "char": "医",
+                        "pinyin": "yī"
+                    },
+                    {
+                        "char": "院",
+                        "pinyin": "yuàn"
+                    },
+                    {
+                        "char": "生",
+                        "pinyin": "shēng"
+                    },
+                    {
+                        "char": "门",
+                        "pinyin": "mén"
+                    },
+                    {
+                        "char": "卫",
+                        "pinyin": "wèi"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "unit": "识字表 第七单元",
+        "content": [
+            {
+                "class": "阅读5",
+                "chars": [
+                    {
+                        "char": "船",
+                        "pinyin": "chuán"
+                    },
+                    {
+                        "char": "弯",
+                        "pinyin": "wān"
+                    },
+                    {
+                        "char": "儿",
+                        "pinyin": "ér"
+                    },
+                    {
+                        "char": "两",
+                        "pinyin": "liǎng"
+                    },
+                    {
+                        "char": "头",
+                        "pinyin": "tóu"
+                    },
+                    {
+                        "char": "在",
+                        "pinyin": "zài"
+                    },
+                    {
+                        "char": "里",
+                        "pinyin": "lǐ"
+                    },
+                    {
+                        "char": "看",
+                        "pinyin": "kàn"
+                    },
+                    {
+                        "char": "见",
+                        "pinyin": "jiàn"
+                    },
+                    {
+                        "char": "闪",
+                        "pinyin": "shǎn"
+                    }
+                ]
+            },
+            {
+                "class": "阅读6",
+                "chars": [
+                    {
+                        "char": "影",
+                        "pinyin": "yǐng"
+                    },
+                    {
+                        "char": "前",
+                        "pinyin": "qián"
+                    },
+                    {
+                        "char": "常",
+                        "pinyin": "cháng"
+                    },
+                    {
+                        "char": "黑",
+                        "pinyin": "hēi"
+                    },
+                    {
+                        "char": "狗",
+                        "pinyin": "gǒu"
+                    },
+                    {
+                        "char": "左",
+                        "pinyin": "zuǒ"
+                    },
+                    {
+                        "char": "右",
+                        "pinyin": "yòu"
+                    },
+                    {
+                        "char": "它",
+                        "pinyin": "tā"
+                    },
+                    {
+                        "char": "好",
+                        "pinyin": "hǎo"
+                    },
+                    {
+                        "char": "朋",
+                        "pinyin": "péng"
+                    },
+                    {
+                        "char": "友",
+                        "pinyin": "yǒu"
+                    }
+                ]
+            },
+            {
+                "class": "阅读7",
+                "chars": [
+                    {
+                        "char": "件",
+                        "pinyin": "jiàn"
+                    },
+                    {
+                        "char": "有",
+                        "pinyin": "yǒu"
+                    },
+                    {
+                        "char": "和",
+                        "pinyin": "hé"
+                    },
+                    {
+                        "char": "做",
+                        "pinyin": "zuò"
+                    },
+                    {
+                        "char": "也",
+                        "pinyin": "yě"
+                    },
+                    {
+                        "char": "办",
+                        "pinyin": "bàn"
+                    },
+                    {
+                        "char": "到",
+                        "pinyin": "dào"
+                    },
+                    {
+                        "char": "又",
+                        "pinyin": "yòu"
+                    },
+                    {
+                        "char": "才",
+                        "pinyin": "cái"
+                    },
+                    {
+                        "char": "能",
+                        "pinyin": "néng"
+                    }
+                ]
+            },
+            {
+                "class": "语文园地七",
+                "chars": [
+                    {
+                        "char": "爷",
+                        "pinyin": "yé"
+                    },
+                    {
+                        "char": "奶",
+                        "pinyin": "nǎi"
+                    },
+                    {
+                        "char": "叔",
+                        "pinyin": "shū"
+                    },
+                    {
+                        "char": "姐",
+                        "pinyin": "jiě"
+                    },
+                    {
+                        "char": "妹",
+                        "pinyin": "mèi"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "unit": "识字表 第八单元",
+        "content": [
+            {
+                "class": "阅读8",
+                "chars": [
+                    {
+                        "char": "比",
+                        "pinyin": "bǐ"
+                    },
+                    {
+                        "char": "尾",
+                        "pinyin": "wěi"
+                    },
+                    {
+                        "char": "巴",
+                        "pinyin": "bā"
+                    },
+                    {
+                        "char": "谁",
+                        "pinyin": "shuí"
+                    },
+                    {
+                        "char": "长",
+                        "pinyin": "cháng"
+                    },
+                    {
+                        "char": "短",
+                        "pinyin": "duǎn"
+                    },
+                    {
+                        "char": "把",
+                        "pinyin": "bǎ"
+                    },
+                    {
+                        "char": "伞",
+                        "pinyin": "sǎn"
+                    },
+                    {
+                        "char": "兔",
+                        "pinyin": "tù"
+                    },
+                    {
+                        "char": "最",
+                        "pinyin": "zuì"
+                    },
+                    {
+                        "char": "公",
+                        "pinyin": "gōng"
+                    }
+                ]
+            },
+            {
+                "class": "阅读9",
+                "chars": [
+                    {
+                        "char": "喝",
+                        "pinyin": "hē"
+                    },
+                    {
+                        "char": "只",
+                        "pinyin": "zhī"
+                    },
+                    {
+                        "char": "处",
+                        "pinyin": "chù"
+                    },
+                    {
+                        "char": "找",
+                        "pinyin": "zhǎo"
+                    },
+                    {
+                        "char": "着",
+                        "pinyin": "zháo"
+                    },
+                    {
+                        "char": "许",
+                        "pinyin": "xǔ"
+                    },
+                    {
+                        "char": "石",
+                        "pinyin": "shí"
+                    },
+                    {
+                        "char": "出",
+                        "pinyin": "chū"
+                    },
+                    {
+                        "char": "法",
+                        "pinyin": "fǎ"
+                    },
+                    {
+                        "char": "放",
+                        "pinyin": "fàng"
+                    },
+                    {
+                        "char": "进",
+                        "pinyin": "jìn"
+                    },
+                    {
+                        "char": "高",
+                        "pinyin": "gāo"
+                    }
+                ]
+            },
+            {
+                "class": "阅读10",
+                "chars": [
+                    {
+                        "char": "点",
+                        "pinyin": "diǎn"
+                    },
+                    {
+                        "char": "数",
+                        "pinyin": "shǔ"
+                    },
+                    {
+                        "char": "彩",
+                        "pinyin": "cǎi"
+                    },
+                    {
+                        "char": "半",
+                        "pinyin": "bàn"
+                    },
+                    {
+                        "char": "空",
+                        "pinyin": "kōng"
+                    },
+                    {
+                        "char": "问",
+                        "pinyin": "wèn"
+                    },
+                    {
+                        "char": "回",
+                        "pinyin": "huí"
+                    },
+                    {
+                        "char": "答",
+                        "pinyin": "dá"
+                    },
+                    {
+                        "char": "方",
+                        "pinyin": "fāng"
+                    },
+                    {
+                        "char": "久",
+                        "pinyin": "jiǔ"
+                    },
+                    {
+                        "char": "更",
+                        "pinyin": "gèng"
+                    },
+                    {
+                        "char": "长",
+                        "pinyin": "zhǎng"
+                    }
+                ]
+            },
+            {
+                "class": "语文园地八",
+                "chars": [
+                    {
+                        "char": "牛",
+                        "pinyin": "niú"
+                    },
+                    {
+                        "char": "羊",
+                        "pinyin": "yáng"
+                    },
+                    {
+                        "char": "爪",
+                        "pinyin": "zhuǎ"
+                    },
+                    {
+                        "char": "元",
+                        "pinyin": "yuán"
+                    },
+                    {
+                        "char": "拼",
+                        "pinyin": "pīn"
+                    },
+                    {
+                        "char": "音",
+                        "pinyin": "yīn"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "unit": "写字表 第一单元",
+        "content": [
+            {
+                "class": "识字2",
+                "chars": [
+                    {
+                        "char": "一",
+                        "pinyin": "yī"
+                    },
+                    {
+                        "char": "二",
+                        "pinyin": "èr"
+                    },
+                    {
+                        "char": "三",
+                        "pinyin": "sān"
+                    },
+                    {
+                        "char": "上",
+                        "pinyin": "shàng"
+                    }
+                ]
+            },
+            {
+                "class": "识字3",
+                "chars": [
+                    {
+                        "char": "口",
+                        "pinyin": "kǒu"
+                    },
+                    {
+                        "char": "耳",
+                        "pinyin": "ěr"
+                    },
+                    {
+                        "char": "目",
+                        "pinyin": "mù"
+                    },
+                    {
+                        "char": "手",
+                        "pinyin": "shǒu"
+                    }
+                ]
+            },
+            {
+                "class": "识字4",
+                "chars": [
+                    {
+                        "char": "日",
+                        "pinyin": "rì"
+                    },
+                    {
+                        "char": "火",
+                        "pinyin": "huǒ"
+                    },
+                    {
+                        "char": "田",
+                        "pinyin": "tián"
+                    },
+                    {
+                        "char": "禾",
+                        "pinyin": "hé"
+                    }
+                ]
+            },
+            {
+                "class": "语文园地一",
+                "chars": [
+                    {
+                        "char": "六",
+                        "pinyin": "liù"
+                    },
+                    {
+                        "char": "七",
+                        "pinyin": "qī"
+                    },
+                    {
+                        "char": "八",
+                        "pinyin": "bā"
+                    },
+                    {
+                        "char": "十",
+                        "pinyin": "shí"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "unit": "写字表 第二单元",
+        "content": [
+            {
+                "class": "语文园地二",
+                "chars": [
+                    {
+                        "char": "九",
+                        "pinyin": "jiǔ"
+                    },
+                    {
+                        "char": "王",
+                        "pinyin": "wáng"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "unit": "写字表 第三单元",
+        "content": [
+            {
+                "class": "语文园地三",
+                "chars": [
+                    {
+                        "char": "午",
+                        "pinyin": "wǔ"
+                    },
+                    {
+                        "char": "下",
+                        "pinyin": "xià"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "unit": "写字表 第四单元",
+        "content": [
+            {
+                "class": "语文园地四",
+                "chars": [
+                    {
+                        "char": "个",
+                        "pinyin": "gè"
+                    },
+                    {
+                        "char": "去",
+                        "pinyin": "qù"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "unit": "写字表 第五单元",
+        "content": [
+            {
+                "class": "阅读1",
+                "chars": [
+                    {
+                        "char": "了",
+                        "pinyin": "le"
+                    },
+                    {
+                        "char": "子",
+                        "pinyin": "zǐ"
+                    },
+                    {
+                        "char": "大",
+                        "pinyin": "dà"
+                    },
+                    {
+                        "char": "人",
+                        "pinyin": "rén"
+                    }
+                ]
+            },
+            {
+                "class": "阅读2",
+                "chars": [
+                    {
+                        "char": "可",
+                        "pinyin": "kě"
+                    },
+                    {
+                        "char": "叶",
+                        "pinyin": "yè"
+                    },
+                    {
+                        "char": "东",
+                        "pinyin": "dōng"
+                    },
+                    {
+                        "char": "西",
+                        "pinyin": "xī"
+                    }
+                ]
+            },
+            {
+                "class": "阅读3",
+                "chars": [
+                    {
+                        "char": "竹",
+                        "pinyin": "zhú"
+                    },
+                    {
+                        "char": "马",
+                        "pinyin": "mǎ"
+                    },
+                    {
+                        "char": "牙",
+                        "pinyin": "yá"
+                    },
+                    {
+                        "char": "用",
+                        "pinyin": "yòng"
+                    },
+                    {
+                        "char": "几",
+                        "pinyin": "jǐ"
+                    }
+                ]
+            },
+            {
+                "class": "阅读4",
+                "chars": [
+                    {
+                        "char": "四",
+                        "pinyin": "sì"
+                    },
+                    {
+                        "char": "小",
+                        "pinyin": "xiǎo"
+                    },
+                    {
+                        "char": "鸟",
+                        "pinyin": "niǎo"
+                    },
+                    {
+                        "char": "是",
+                        "pinyin": "shì"
+                    },
+                    {
+                        "char": "天",
+                        "pinyin": "tiān"
+                    }
+                ]
+            },
+            {
+                "class": "语文园地五",
+                "chars": [
+                    {
+                        "char": "女",
+                        "pinyin": "nǚ"
+                    },
+                    {
+                        "char": "开",
+                        "pinyin": "kāi"
+                    },
+                    {
+                        "char": "关",
+                        "pinyin": "guān"
+                    },
+                    {
+                        "char": "先",
+                        "pinyin": "xiān"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "unit": "写字表 第六单元",
+        "content": [
+            {
+                "class": "识字5",
+                "chars": [
+                    {
+                        "char": "云",
+                        "pinyin": "yún"
+                    },
+                    {
+                        "char": "雨",
+                        "pinyin": "yǔ"
+                    },
+                    {
+                        "char": "虫",
+                        "pinyin": "chóng"
+                    },
+                    {
+                        "char": "山",
+                        "pinyin": "shān"
+                    },
+                    {
+                        "char": "水",
+                        "pinyin": "shuǐ"
+                    }
+                ]
+            },
+            {
+                "class": "识字6",
+                "chars": [
+                    {
+                        "char": "力",
+                        "pinyin": "lì"
+                    },
+                    {
+                        "char": "男",
+                        "pinyin": "nán"
+                    },
+                    {
+                        "char": "土",
+                        "pinyin": "tǔ"
+                    },
+                    {
+                        "char": "木",
+                        "pinyin": "mù"
+                    },
+                    {
+                        "char": "心",
+                        "pinyin": "xīn"
+                    }
+                ]
+            },
+            {
+                "class": "识字7",
+                "chars": [
+                    {
+                        "char": "尺",
+                        "pinyin": "chǐ"
+                    },
+                    {
+                        "char": "本",
+                        "pinyin": "běn"
+                    },
+                    {
+                        "char": "刀",
+                        "pinyin": "dāo"
+                    },
+                    {
+                        "char": "不",
+                        "pinyin": "bù"
+                    },
+                    {
+                        "char": "少",
+                        "pinyin": "shǎo"
+                    }
+                ]
+            },
+            {
+                "class": "识字8",
+                "chars": [
+                    {
+                        "char": "中",
+                        "pinyin": "zhōng"
+                    },
+                    {
+                        "char": "五",
+                        "pinyin": "wǔ"
+                    },
+                    {
+                        "char": "风",
+                        "pinyin": "fēng"
+                    },
+                    {
+                        "char": "立",
+                        "pinyin": "lì"
+                    },
+                    {
+                        "char": "正",
+                        "pinyin": "zhèng"
+                    }
+                ]
+            },
+            {
+                "class": "语文园地六",
+                "chars": [
+                    {
+                        "char": "工",
+                        "pinyin": "gōng"
+                    },
+                    {
+                        "char": "厂",
+                        "pinyin": "chǎng"
+                    },
+                    {
+                        "char": "门",
+                        "pinyin": "mén"
+                    },
+                    {
+                        "char": "卫",
+                        "pinyin": "wèi"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "unit": "写字表 第七单元",
+        "content": [
+            {
+                "class": "阅读5",
+                "chars": [
+                    {
+                        "char": "月",
+                        "pinyin": "yuè"
+                    },
+                    {
+                        "char": "儿",
+                        "pinyin": "ér"
+                    },
+                    {
+                        "char": "头",
+                        "pinyin": "tóu"
+                    },
+                    {
+                        "char": "里",
+                        "pinyin": "lǐ"
+                    },
+                    {
+                        "char": "见",
+                        "pinyin": "jiàn"
+                    }
+                ]
+            },
+            {
+                "class": "阅读6",
+                "chars": [
+                    {
+                        "char": "在",
+                        "pinyin": "zài"
+                    },
+                    {
+                        "char": "我",
+                        "pinyin": "wǒ"
+                    },
+                    {
+                        "char": "左",
+                        "pinyin": "zuǒ"
+                    },
+                    {
+                        "char": "右",
+                        "pinyin": "yòu"
+                    }
+                ]
+            },
+            {
+                "class": "阅读7",
+                "chars": [
+                    {
+                        "char": "和",
+                        "pinyin": "hé"
+                    },
+                    {
+                        "char": "也",
+                        "pinyin": "yě"
+                    },
+                    {
+                        "char": "又",
+                        "pinyin": "yòu"
+                    },
+                    {
+                        "char": "才",
+                        "pinyin": "cái"
+                    }
+                ]
+            },
+            {
+                "class": "语文园地七",
+                "chars": [
+                    {
+                        "char": "爸",
+                        "pinyin": "bà"
+                    },
+                    {
+                        "char": "妈",
+                        "pinyin": "mā"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "unit": "写字表 第八单元",
+        "content": [
+            {
+                "class": "阅读8",
+                "chars": [
+                    {
+                        "char": "比",
+                        "pinyin": "bǐ"
+                    },
+                    {
+                        "char": "巴",
+                        "pinyin": "bā"
+                    },
+                    {
+                        "char": "长",
+                        "pinyin": "cháng"
+                    },
+                    {
+                        "char": "公",
+                        "pinyin": "gōng"
+                    }
+                ]
+            },
+            {
+                "class": "阅读9",
+                "chars": [
+                    {
+                        "char": "只",
+                        "pinyin": "zhǐ"
+                    },
+                    {
+                        "char": "多",
+                        "pinyin": "duō"
+                    },
+                    {
+                        "char": "办",
+                        "pinyin": "bàn"
+                    },
+                    {
+                        "char": "石",
+                        "pinyin": "shí"
+                    },
+                    {
+                        "char": "出",
+                        "pinyin": "chū"
+                    }
+                ]
+            },
+            {
+                "class": "阅读10",
+                "chars": [
+                    {
+                        "char": "来",
+                        "pinyin": "lái"
+                    },
+                    {
+                        "char": "半",
+                        "pinyin": "bàn"
+                    },
+                    {
+                        "char": "你",
+                        "pinyin": "nǐ"
+                    },
+                    {
+                        "char": "有",
+                        "pinyin": "yǒu"
+                    }
+                ]
+            },
+            {
+                "class": "语文园地八",
+                "chars": [
+                    {
+                        "char": "牛",
+                        "pinyin": "niú"
+                    },
+                    {
+                        "char": "羊",
+                        "pinyin": "yáng"
+                    },
+                    {
+                        "char": "爪",
+                        "pinyin": "zhuǎ"
+                    },
+                    {
+                        "char": "白",
+                        "pinyin": "bái"
+                    }
+                ]
+            }
+        ]
+    }
+]
