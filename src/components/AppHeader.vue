@@ -52,6 +52,14 @@
           <span class="nav-icon">📚</span>
           <span>词库管理</span>
         </router-link>
+         <a
+          href="/math2.html"
+          class="nav-link"
+          active-class="nav-link--active"
+        >
+          <span class="nav-icon">📚</span>
+          <span>数学练习</span>
+      </a>
       </nav>
     </div>
     <!-- 底部渐变装饰线 -->

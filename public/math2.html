@@ -1,0 +1,1030 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=yes">
+    <title>🐨 算术全能王 · 加减乘除</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: linear-gradient(145deg, #b3dff0 0%, #d4f0ff 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', 'Comic Sans MS', 'Chalkboard SE', Roboto, sans-serif;
+            padding: 8px;
+        }
+
+        .game-box {
+            background-color: #fff9e6;
+            max-width: 950px;
+            width: 100%;
+            border-radius: 60px 60px 40px 40px;
+            box-shadow: 0 20px 30px rgba(0, 0, 0, 0.15), 0 8px 0 #4a8bb5 inset, 0 -6px 0 #c0dcee inset;
+            padding: 20px 15px 30px 15px;
+            border: 5px solid #f7d794;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #2e4057;
+            text-shadow: 3px 3px 0 #f9d56e;
+            background: #fceea7;
+            display: inline-block;
+            padding: 6px 25px;
+            border-radius: 50px;
+            margin: 0 0 10px 0;
+            border: 4px solid #f3b33d;
+            letter-spacing: 1px;
+            box-shadow: 0 5px 0 #b57c1a;
+        }
+
+        .mode-switch {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        .mode-btn {
+            font-size: 1.5rem;
+            font-weight: bold;
+            padding: 8px 20px;
+            border: 4px solid white;
+            border-radius: 50px;
+            background-color: #ffe2b5;
+            color: #4a3a22;
+            box-shadow: 0 5px 0 #cfa776;
+            cursor: pointer;
+            transition: 0.05s linear;
+        }
+
+        .mode-btn.active {
+            background-color: #ffb78c;
+            color: #2f1f0c;
+            box-shadow: 0 2px 0 #cfa776;
+            transform: translateY(2px);
+        }
+
+        .score-panel {
+            background: #c1e0fe;
+            border-radius: 80px;
+            padding: 10px 15px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            font-size: 1.7rem;
+            font-weight: bold;
+            color: #1f4e6f;
+            border: 4px solid white;
+            margin-bottom: 15px;
+            box-shadow: 0 6px 0 #5f9bc2;
+        }
+
+        .score-item {
+            background: white;
+            border-radius: 40px;
+            padding: 5px 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: inset 0 -3px 0 #c0dcee;
+        }
+
+        .score-emoji {
+            font-size: 1.8rem;
+        }
+
+        .question-card {
+            background: #fef7d5;
+            border-radius: 70px 70px 40px 40px;
+            border: 6px solid #ffb882;
+            padding: 15px 10px 20px 10px;
+            margin: 5px 0 15px 0;
+            box-shadow: 0 10px 0 #d38b5a, inset 0 -5px 0 #ffeeaa;
+        }
+
+        .question-text {
+            font-size: 3rem;
+            font-weight: 800;
+            color: #2d4b6e;
+            text-shadow: 3px 3px 0 #fbbc56;
+            word-break: break-word;
+            margin-bottom: 8px;
+        }
+
+        /* 动物图标区域：固定高度+滚动，防止跳动 */
+        .animal-row {
+            background: #fef2d6;
+            border-radius: 50px;
+            padding: 15px 20px;
+            margin: 8px 0 5px 0;
+            border: 4px dashed #f8b56c;
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            min-height: 200px;
+            max-height: 230px;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+        .animal-row::-webkit-scrollbar {
+            width: 8px;
+        }
+        .animal-row::-webkit-scrollbar-track {
+            background: #f1e5c9;
+            border-radius: 10px;
+        }
+        .animal-row::-webkit-scrollbar-thumb {
+            background: #cfa776;
+            border-radius: 10px;
+        }
+
+        .operator-box {
+            flex-shrink: 0;
+            background: #ffdbb5;
+            border-radius: 40px;
+            padding: 10px 15px;
+            font-size: 2.8rem;
+            font-weight: 800;
+            box-shadow: 0 5px 0 #cfa776;
+            color: #4a3a22;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 80px;
+            align-self: center;
+        }
+
+        /* 加减法网格 (每行10列) */
+        .icon-grid {
+            display: grid;
+            grid-template-columns: repeat(10, minmax(40px, 1fr));
+            gap: 8px;
+            flex: 1;
+            align-items: center;
+            justify-items: center;
+        }
+
+        /* 乘法矩阵网格 */
+        .matrix-grid {
+            display: inline-grid;
+            gap: 8px;
+            background: #fff0d4;
+            padding: 10px;
+            border-radius: 40px;
+            width: 100%;
+            justify-items: center;
+            align-items: center;
+        }
+
+        .icon-item {
+            width: 45px;
+            height: 45px;
+            font-size: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            filter: drop-shadow(2px 2px 2px rgba(0,0,0,0.15));
+            position: relative;
+        }
+
+        .subtracted::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 50%;
+            height: 5px;
+            background: rgba(220, 30, 30, 0.8);
+            transform: rotate(-8deg);
+            border-radius: 4px;
+            box-shadow: 0 0 0 2px #ffd966;
+            pointer-events: none;
+        }
+
+        .zero-placeholder {
+            width: 45px;
+            height: 45px;
+            background: #e0d9c8;
+            color: #6d6d6d;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            font-weight: bold;
+            border: 3px solid #b0a48b;
+        }
+
+        /* 数字输入区域 */
+        .number-panel {
+            background: #e3f0fa;
+            border-radius: 70px;
+            padding: 15px 10px;
+            margin: 10px 0 10px;
+            border: 5px solid #b3d2eb;
+            box-shadow: 0 8px 0 #7b9eb9;
+        }
+
+        .selected-hint {
+            font-size: 1.8rem;
+            background: #ffecaa;
+            border-radius: 40px;
+            padding: 6px 15px;
+            margin-bottom: 15px;
+            display: inline-block;
+            border: 3px solid #f0b87b;
+        }
+
+        /* 加减法键盘 7x3 */
+        .num-buttons-7x3 {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 8px;
+            justify-items: center;
+            align-items: center;
+            padding: 5px;
+        }
+
+        /* 乘法/除法键盘 九宫格 */
+        .num-buttons-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            justify-items: center;
+            align-items: center;
+            max-width: 280px;
+            margin: 0 auto;
+        }
+
+        .dual-panel {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 10px;
+        }
+        .dual-col {
+            flex: 1;
+            min-width: 160px;
+            text-align: center;
+            background: #f7f0dc;
+            border-radius: 50px;
+            padding: 12px;
+            box-shadow: inset 0 0 0 3px white, 0 6px 0 #cfa776;
+        }
+        .dual-col h3 {
+            font-size: 1.6rem;
+            background: #ffe5b4;
+            display: inline-block;
+            padding: 4px 20px;
+            border-radius: 40px;
+            margin-bottom: 12px;
+        }
+
+        .num-btn {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            max-width: 70px;
+            font-size: 2rem;
+            font-weight: 800;
+            background-color: #fee69c;
+            border: 4px solid white;
+            border-radius: 30px;
+            color: #2e4a5c;
+            box-shadow: 0 6px 0 #c09d5e, 0 4px 10px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: 0.04s linear;
+        }
+
+        .num-btn.selected {
+            background-color: #b0d9b1;
+            transform: translateY(3px);
+            box-shadow: 0 3px 0 #6b8f5e;
+            border-color: #ffe88c;
+        }
+
+        .num-btn:active {
+            transform: translateY(4px);
+            box-shadow: 0 2px 0 #a07d41;
+        }
+
+        .num-btn:disabled {
+            opacity: 0.5;
+            transform: translateY(0);
+            box-shadow: 0 4px 0 #7e6b48;
+            pointer-events: none;
+        }
+
+        .clear-btn {
+            background-color: #f9c9b4;
+            box-shadow: 0 6px 0 #bd7f5a;
+            font-size: 1.4rem;
+            margin-top: 12px;
+            padding: 8px 16px;
+            border-radius: 40px;
+            cursor: pointer;
+            display: inline-block;
+            border: 3px solid white;
+        }
+
+        .action-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            margin: 15px 0 10px;
+        }
+
+        .btn {
+            font-size: 1.8rem;
+            font-weight: bold;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 50px;
+            background-color: #ffd966;
+            color: #2f4858;
+            box-shadow: 0 7px 0 #c58f2f, 0 4px 15px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: 0.05s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            border: 3px solid white;
+        }
+
+        .btn:active {
+            transform: translateY(5px);
+            box-shadow: 0 2px 0 #c58f2f;
+        }
+
+        .music-btn {
+            background-color: #d9c2f0;
+            box-shadow: 0 7px 0 #9370b3;
+        }
+
+        .feedback {
+            background: #fff0bd;
+            border-radius: 50px;
+            padding: 18px 15px;
+            font-size: 2rem;
+            font-weight: 600;
+            color: #1d4e6f;
+            border: 4px solid #fea1a1;
+            min-height: 85px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin: 12px 0 5px;
+        }
+
+        .footer-note {
+            color: #3b5d73;
+            margin-top: 8px;
+            font-size: 1.3rem;
+            background: #fef9e3;
+            padding: 5px 15px;
+            border-radius: 40px;
+            display: inline-block;
+        }
+
+        @media (max-width: 650px) {
+            .icon-item { width: 35px; height: 35px; font-size: 1.6rem; }
+            .operator-box { font-size: 2rem; min-width: 60px; }
+            .question-text { font-size: 2.4rem; }
+            .dual-col h3 { font-size: 1.3rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="game-box">
+    <h1>🐨 算术全能王</h1>
+
+    <div class="mode-switch">
+        <div class="mode-btn" data-mode="mult">✖️ 乘法表</div>
+        <div class="mode-btn" data-mode="arithmetic">➕ 加减法</div>
+        <div class="mode-btn" data-mode="division">➗ 有余除法</div>
+    </div>
+
+    <div class="score-panel">
+        <div class="score-item"><span class="score-emoji">✅</span> <span id="correctCount">0</span></div>
+        <div class="score-item"><span class="score-emoji">📋</span> <span id="totalCount">0</span></div>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text" id="questionDisplay">4 × 5 = ?</div>
+        <div id="animalIconsContainer" class="animal-row"></div>
+    </div>
+
+    <!-- 数字输入区域（动态内容） -->
+    <div class="number-panel" id="numberPanel"></div>
+
+    <div class="action-buttons">
+        <button class="btn btn-check" id="checkBtn">✔️ 检查</button>
+        <button class="btn btn-next" id="nextBtn">🌟 下一题</button>
+        <button class="btn btn-reset" id="resetBtn">🔄 重置</button>
+        <button class="btn music-btn" id="musicBtn">🔇 滴答</button>
+    </div>
+
+    <div class="feedback" id="feedbackMsg"><span>🐣</span> 选择模式开始挑战吧！</div>
+    <div class="footer-note">⭐ 乘法: 点数字组合答案 / 除法: 左边商，右边余数，各点一位数字</div>
+</div>
+
+<script>
+    (function() {
+        // ----- DOM -----
+        const modeBtns = document.querySelectorAll('.mode-btn');
+        const questionDisplay = document.getElementById('questionDisplay');
+        const animalContainer = document.getElementById('animalIconsContainer');
+        const correctSpan = document.getElementById('correctCount');
+        const totalSpan = document.getElementById('totalCount');
+        const checkBtn = document.getElementById('checkBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const musicBtn = document.getElementById('musicBtn');
+        const feedbackDiv = document.getElementById('feedbackMsg');
+        const numberPanel = document.getElementById('numberPanel');
+
+        // ----- 游戏状态 -----
+        let currentMode = 'mult';     // 'mult', 'arithmetic', 'division'
+        let correctCount = 0;
+        let totalCount = 0;
+        let currentQuestion = { operand1: 4, operand2: 5, operator: '×', answer: 20 };
+        // 除法专用
+        let currentDivision = null;    // { dividend, divisor, quotient, remainder }
+        // 输入状态
+        let selectedAnswer = null;     // 加减法: 单个数字
+        let multSelectedDigits = [];    // 乘法: 组合数字数组
+        let divisionSelected = { quotient: null, remainder: null }; // 除法: 商和余数
+        let numButtons = [];            // 当前数字按钮DOM列表
+
+        // 音频
+        let audioCtx = null;
+        let tickInterval = null;
+        let tickPlaying = false;
+        let audioUnlocked = false;
+
+        function initAudio() {
+            if (audioCtx) return;
+            try {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            } catch(e) { console.warn(e); }
+        }
+        function unlockAudio() {
+            if (!audioCtx) initAudio();
+            if (audioCtx && audioCtx.state === 'suspended') {
+                audioCtx.resume().then(() => { audioUnlocked = true; });
+            } else if (audioCtx) audioUnlocked = true;
+        }
+        function playTick() {
+            if (!audioUnlocked || !audioCtx) return;
+            const now = audioCtx.currentTime;
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(1200, now);
+            gain.gain.setValueAtTime(0.12, now);
+            gain.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
+            osc.connect(gain).connect(audioCtx.destination);
+            osc.start(now);
+            osc.stop(now + 0.08);
+        }
+        function startTicks() {
+            if (tickPlaying) return;
+            tickPlaying = true;
+            musicBtn.textContent = '⏰ 滴答';
+            tickInterval = setInterval(() => playTick(), 500);
+        }
+        function stopTicks() {
+            if (tickInterval) { clearInterval(tickInterval); tickInterval = null; }
+            tickPlaying = false;
+            musicBtn.textContent = '🔇 滴答';
+        }
+        function toggleMusic() {
+            unlockAudio();
+            if (tickPlaying) stopTicks();
+            else startTicks();
+        }
+        function playCorrectSound() {
+            if (!audioUnlocked || !audioCtx) return;
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(880, audioCtx.currentTime);
+            gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
+            osc.connect(gain).connect(audioCtx.destination);
+            osc.start();
+            osc.stop(audioCtx.currentTime + 0.3);
+        }
+        function playWrongSound() {
+            if (!audioUnlocked || !audioCtx) return;
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = 'sawtooth';
+            osc.frequency.setValueAtTime(220, audioCtx.currentTime);
+            gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.25);
+            osc.connect(gain).connect(audioCtx.destination);
+            osc.start();
+            osc.stop(audioCtx.currentTime + 0.25);
+        }
+
+        function updateScoreUI() {
+            correctSpan.textContent = correctCount;
+            totalSpan.textContent = totalCount;
+        }
+
+        // ---------- 题目生成器 ----------
+        function randomInt(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+        function generateDivision() {
+            const divisor = randomInt(2, 9);
+            const quotient = randomInt(1, 9);
+            const remainder = randomInt(1, divisor - 1);
+            const dividend = divisor * quotient + remainder;
+            return { dividend, divisor, quotient, remainder };
+        }
+        function generateArithmeticQuestion() {
+            const isAdd = Math.random() < 0.5;
+            if (isAdd) {
+                let a = randomInt(0, 20);
+                let b = randomInt(0, 20 - a);
+                return { operand1: a, operand2: b, operator: '+', answer: a + b };
+            } else {
+                let a = randomInt(0, 20);
+                let b = randomInt(0, a);
+                return { operand1: a, operand2: b, operator: '−', answer: a - b };
+            }
+        }
+        function generateMultiplicationQuestion() {
+            let a = randomInt(1, 9);
+            let b = randomInt(1, 9);
+            return { operand1: a, operand2: b, operator: '×', answer: a * b };
+        }
+
+        // ---------- 动物渲染 (加减法 / 乘法 / 除法无动物) ----------
+        function renderArithmeticIcons(op1, op2, operator) {
+            animalContainer.innerHTML = '';
+            const opBox = document.createElement('div');
+            opBox.className = 'operator-box';
+            opBox.textContent = operator === '−' ? `− ${op2}` : '+';
+            animalContainer.appendChild(opBox);
+
+            const grid = document.createElement('div');
+            grid.className = 'icon-grid';
+            let icons = [];
+            if (operator === '+') {
+                for (let i=0; i<op1; i++) icons.push({ emoji: '🐶', subtracted: false });
+                for (let i=0; i<op2; i++) icons.push({ emoji: '🐼', subtracted: false });
+            } else {
+                for (let i=0; i<op1; i++) icons.push({ emoji: '🐘', subtracted: i < op2 });
+            }
+            if (icons.length === 0) {
+                const zeroDiv = document.createElement('div');
+                zeroDiv.className = 'zero-placeholder';
+                zeroDiv.textContent = '0';
+                grid.appendChild(zeroDiv);
+            } else {
+                icons.forEach(ic => {
+                    const item = document.createElement('div');
+                    item.className = 'icon-item';
+                    if (ic.subtracted) item.classList.add('subtracted');
+                    item.textContent = ic.emoji;
+                    grid.appendChild(item);
+                });
+            }
+            animalContainer.appendChild(grid);
+        }
+
+        function renderMultiplicationIcons(rows, cols) {
+            animalContainer.innerHTML = '';
+            const opBox = document.createElement('div');
+            opBox.className = 'operator-box';
+            opBox.textContent = `× ${cols}`;
+            animalContainer.appendChild(opBox);
+
+            const matrixDiv = document.createElement('div');
+            matrixDiv.className = 'matrix-grid';
+            matrixDiv.style.gridTemplateColumns = `repeat(${cols}, minmax(40px, 1fr))`;
+            for (let i = 0; i < rows * cols; i++) {
+                const item = document.createElement('div');
+                item.className = 'icon-item';
+                item.textContent = '🐨';
+                matrixDiv.appendChild(item);
+            }
+            animalContainer.appendChild(matrixDiv);
+        }
+
+        function renderProduct(quotient, division) {
+            animalContainer.innerHTML = '';
+            const opBox = document.createElement('div');
+            opBox.className = 'operator-box';
+            if(quotient !== undefined && quotient !== null)opBox.textContent = `${quotient} x ${division} = ${quotient*division}`;
+            else opBox.textContent = `? x ${division} = ?`;
+            animalContainer.appendChild(opBox);
+
+        }
+
+        function clearAnimalArea() {
+            animalContainer.innerHTML = '<div style="width:100%; text-align:center; padding:20px; color:#b87c4a;">✨ 无动物展示 ✨</div>';
+        }
+
+        // ---------- 刷新当前模式题目 & UI ----------
+        function refreshQuestionUI() {
+            if (currentMode === 'arithmetic') {
+                currentQuestion = generateArithmeticQuestion();
+                questionDisplay.textContent = `${currentQuestion.operand1} ${currentQuestion.operator} ${currentQuestion.operand2} = ?`;
+                renderArithmeticIcons(currentQuestion.operand1, currentQuestion.operand2, currentQuestion.operator);
+                selectedAnswer = null;
+                if (numButtons) numButtons.forEach(btn => btn.classList.remove('selected'));
+                const hint = document.getElementById('selectedHint');
+                if (hint) hint.innerHTML = '👆 点数字选答案';
+            } 
+            else if (currentMode === 'mult') {
+                currentQuestion = generateMultiplicationQuestion();
+                questionDisplay.textContent = `${currentQuestion.operand1} × ${currentQuestion.operand2} = ?`;
+                renderMultiplicationIcons(currentQuestion.operand1, currentQuestion.operand2);
+                multSelectedDigits = [];
+                updateMultSelectedDisplay();
+                if (numButtons) numButtons.forEach(btn => btn.classList.remove('selected'));
+            } 
+            else if (currentMode === 'division') {
+                currentDivision = generateDivision();
+                currentQuestion = {
+                    operand1: currentDivision.dividend,
+                    operand2: currentDivision.divisor,
+                    operator: '÷',
+                    answer: `${currentDivision.quotient} 余 ${currentDivision.remainder}`
+                };
+                questionDisplay.textContent = `${currentDivision.dividend} ÷ ${currentDivision.divisor} = ? ...... ?`;
+                clearAnimalArea();   // 不展示动物
+                // 重置除法输入
+                divisionSelected = { quotient: null, remainder: null };
+                updateDivisionSelectedDisplay();
+                if (numButtons) {
+                    numButtons.forEach(btn => btn.classList.remove('selected'));
+                    // 特殊处理左右九宫格高亮
+                    highlightDivisionButtons();
+                }
+            }
+            enableButtons(true);
+            feedbackDiv.innerHTML = `<span>🐣</span> 输入答案后点检查，或直接选对自动下一题！`;
+        }
+
+        function updateMultSelectedDisplay() {
+            const hint = document.getElementById('selectedHint');
+            if (!hint) return;
+            let val = multSelectedDigits.join('');
+            if (val === '') hint.innerHTML = `🎯 当前: 未选`;
+            else hint.innerHTML = `🎯 当前: ${val}`;
+            let ansNum = parseInt(val);
+            if (val !== '' && !isNaN(ansNum) && ansNum === currentQuestion.answer && !checkBtn.disabled) {
+                enableButtons(false);
+                handleMultCorrect(true);
+            }
+        }
+
+        function updateDivisionSelectedDisplay() {
+            const hint = document.getElementById('selectedHint');
+            if (!hint) return;
+            let qText = divisionSelected.quotient !== null ? divisionSelected.quotient : '?';
+            let rText = divisionSelected.remainder !== null ? divisionSelected.remainder : '?';
+            hint.innerHTML = `📊 商: ${qText} &nbsp;&nbsp; 余: ${rText}`;
+            //渲染临时商
+            renderProduct(divisionSelected.quotient,currentDivision.divisor)
+            // 自动正确检测
+            if (divisionSelected.quotient !== null && divisionSelected.remainder !== null &&
+                divisionSelected.quotient === currentDivision.quotient && divisionSelected.remainder === currentDivision.remainder &&
+                !checkBtn.disabled) {
+                enableButtons(false);
+                handleDivisionCorrect(true);
+            }
+        }
+
+        function highlightDivisionButtons() {
+            // 高亮已选的商和余数按钮（在各自区域）
+            if (!numButtons) return;
+            // numButtons 结构: 前10个是左边（商）按钮，后10个是右边（余数）按钮
+            if (numButtons.length === 20) {
+                for (let i = 0; i < 10; i++) {
+                    let btn = numButtons[i];
+                    let val = parseInt(btn.getAttribute('data-value'));
+                    if (divisionSelected.quotient === val) btn.classList.add('selected');
+                    else btn.classList.remove('selected');
+                }
+                for (let i = 10; i < 20; i++) {
+                    let btn = numButtons[i];
+                    let val = parseInt(btn.getAttribute('data-value'));
+                    if (divisionSelected.remainder === val) btn.classList.add('selected');
+                    else btn.classList.remove('selected');
+                }
+            }
+        }
+
+        // 正确/错误处理
+        function handleMultCorrect(autoNext = true) {
+            correctCount++;
+            totalCount++;
+            updateScoreUI();
+            playCorrectSound();
+            feedbackDiv.innerHTML = `<span>🎉✅ 正确！</span> ${currentQuestion.operand1}×${currentQuestion.operand2}=${currentQuestion.answer}`;
+            if (autoNext) setTimeout(() => refreshQuestionUI(), 400);
+            else enableButtons(false);
+        }
+        function handleMultWrong() {
+            totalCount++;
+            updateScoreUI();
+            playWrongSound();
+            feedbackDiv.innerHTML = `<span>😲❌ 不对哦</span> 答案是 ${currentQuestion.answer}，再试试～`;
+        }
+        function handleArithCorrect(autoNext = true) {
+            correctCount++;
+            totalCount++;
+            updateScoreUI();
+            playCorrectSound();
+            feedbackDiv.innerHTML = `<span>🎉✅ 正确！</span> 答案是 ${currentQuestion.answer}`;
+            if (autoNext) setTimeout(() => refreshQuestionUI(), 400);
+            else enableButtons(false);
+        }
+        function handleArithWrong() {
+            totalCount++;
+            updateScoreUI();
+            playWrongSound();
+            feedbackDiv.innerHTML = `<span>😲❌ 不对哦</span> 正确答案是 ${currentQuestion.answer}`;
+        }
+        function handleDivisionCorrect(autoNext = true) {
+            correctCount++;
+            totalCount++;
+            updateScoreUI();
+            playCorrectSound();
+            feedbackDiv.innerHTML = `<span>🎉✅ 正确！</span> ${currentDivision.dividend} ÷ ${currentDivision.divisor} = ${currentDivision.quotient} 余 ${currentDivision.remainder}`;
+            if (autoNext) setTimeout(() => refreshQuestionUI(), 400);
+            else enableButtons(false);
+        }
+        function handleDivisionWrong() {
+            totalCount++;
+            updateScoreUI();
+            playWrongSound();
+            feedbackDiv.innerHTML = `<span>😲❌ 不对哦</span> 正确答案是 ${currentDivision.quotient} 余 ${currentDivision.remainder}`;
+        }
+
+        function enableButtons(enable) {
+            if (numButtons) numButtons.forEach(btn => btn.disabled = !enable);
+            checkBtn.disabled = !enable;
+        }
+
+        // 数字点击回调（根据模式）
+        function onDivisionNumberClick(side, value) {
+            if (checkBtn.disabled) return;
+            unlockAudio();
+            if (side === 'quotient') {
+                if (divisionSelected.quotient === value) divisionSelected.quotient = null;
+                else divisionSelected.quotient = value;
+            } else {
+                if (divisionSelected.remainder === value) divisionSelected.remainder = null;
+                else divisionSelected.remainder = value;
+            }
+            highlightDivisionButtons();
+            updateDivisionSelectedDisplay();
+        }
+
+        function onMultNumberClick(value) {
+            if (checkBtn.disabled) return;
+            unlockAudio();
+            let currentStr = multSelectedDigits.join('');
+            if (currentStr.length >= 2) {
+                multSelectedDigits = [value];
+            } else {
+                if (multSelectedDigits.includes(value)) {
+                    multSelectedDigits = multSelectedDigits.filter(v => v !== value);
+                } else {
+                    multSelectedDigits.push(value);
+                }
+            }
+            numButtons.forEach(btn => {
+                let btnVal = parseInt(btn.getAttribute('data-value'), 10);
+                if (multSelectedDigits.includes(btnVal)) btn.classList.add('selected');
+                else btn.classList.remove('selected');
+            });
+            updateMultSelectedDisplay();
+        }
+
+        function onArithNumberClick(value) {
+            if (checkBtn.disabled) return;
+            unlockAudio();
+            selectedAnswer = value;
+            const hint = document.getElementById('selectedHint');
+            if (hint) hint.innerHTML = `✅ 你选了 ${value}`;
+            numButtons.forEach(btn => {
+                let btnVal = parseInt(btn.getAttribute('data-value'), 10);
+                btn.classList.toggle('selected', btnVal === value);
+            });
+            if (value === currentQuestion.answer) {
+                enableButtons(false);
+                handleArithCorrect(true);
+            } else {
+                feedbackDiv.innerHTML = `<span>👆</span> 你选了 ${value}，可以点检查或重新选择`;
+            }
+        }
+
+        // 检查按钮
+        function handleCheck() {
+            if (checkBtn.disabled) return;
+            unlockAudio();
+            if (currentMode === 'arithmetic') {
+                if (selectedAnswer === null) { feedbackDiv.innerHTML = `<span>👀</span> 请先点击一个数字！`; return; }
+                if (selectedAnswer === currentQuestion.answer) { enableButtons(false); handleArithCorrect(false); }
+                else handleArithWrong();
+            } 
+            else if (currentMode === 'mult') {
+                let ansStr = multSelectedDigits.join('');
+                if (ansStr === '') { feedbackDiv.innerHTML = `<span>👀</span> 请先组合数字！`; return; }
+                let userAns = parseInt(ansStr, 10);
+                if (isNaN(userAns)) { feedbackDiv.innerHTML = `<span>❓</span> 无效数字`; return; }
+                if (userAns === currentQuestion.answer) { enableButtons(false); handleMultCorrect(false); }
+                else handleMultWrong();
+            }
+            else if (currentMode === 'division') {
+                if (divisionSelected.quotient === null || divisionSelected.remainder === null) {
+                    feedbackDiv.innerHTML = `<span>👀</span> 请分别选择商和余数！`;
+                    return;
+                }
+                if (divisionSelected.quotient === currentDivision.quotient && divisionSelected.remainder === currentDivision.remainder) {
+                    enableButtons(false);
+                    handleDivisionCorrect(false);
+                } else {
+                    handleDivisionWrong();
+                }
+            }
+        }
+
+        // 重建数字面板
+        function rebuildNumberPanel() {
+            numberPanel.innerHTML = '';
+            if (currentMode === 'arithmetic') {
+                const hint = document.createElement('div');
+                hint.id = 'selectedHint';
+                hint.className = 'selected-hint';
+                hint.innerHTML = '👆 点数字选答案';
+                numberPanel.appendChild(hint);
+                const grid = document.createElement('div');
+                grid.className = 'num-buttons-7x3';
+                const btns = [];
+                for (let i = 0; i <= 20; i++) {
+                    const btn = document.createElement('button');
+                    btn.className = 'num-btn';
+                    btn.setAttribute('data-value', i);
+                    btn.textContent = i;
+                    btn.addEventListener('click', () => onArithNumberClick(i));
+                    grid.appendChild(btn);
+                    btns.push(btn);
+                }
+                numberPanel.appendChild(grid);
+                numButtons = btns;
+            }
+            else if (currentMode === 'mult') {
+                const hint = document.createElement('div');
+                hint.id = 'selectedHint';
+                hint.className = 'selected-hint';
+                hint.innerHTML = '🎯 当前: 未选';
+                numberPanel.appendChild(hint);
+                const grid = document.createElement('div');
+                grid.className = 'num-buttons-grid';
+                const btns = [];
+                const digits = [1,2,3,4,5,6,7,8,9,0];
+                for (let d of digits) {
+                    const btn = document.createElement('button');
+                    btn.className = 'num-btn';
+                    btn.setAttribute('data-value', d);
+                    btn.textContent = d;
+                    btn.addEventListener('click', () => onMultNumberClick(d));
+                    grid.appendChild(btn);
+                    btns.push(btn);
+                }
+                numberPanel.appendChild(grid);
+                const clearDiv = document.createElement('div');
+                clearDiv.className = 'clear-btn';
+                clearDiv.textContent = '🗑️ 清空数字';
+                clearDiv.addEventListener('click', () => {
+                    if (checkBtn.disabled) return;
+                    multSelectedDigits = [];
+                    btns.forEach(btn => btn.classList.remove('selected'));
+                    updateMultSelectedDisplay();
+                    feedbackDiv.innerHTML = `<span>🧹</span> 已清空，重新选择吧`;
+                });
+                numberPanel.appendChild(clearDiv);
+                numButtons = btns;
+            }
+            else if (currentMode === 'division') {
+                const hint = document.createElement('div');
+                hint.id = 'selectedHint';
+                hint.className = 'selected-hint';
+                hint.innerHTML = '📊 商: ? &nbsp;&nbsp; 余: ?';
+                numberPanel.appendChild(hint);
+                const dualDiv = document.createElement('div');
+                dualDiv.className = 'dual-panel';
+                // 左边商
+                const leftCol = document.createElement('div');
+                leftCol.className = 'dual-col';
+                leftCol.innerHTML = '<h3>➗ 商</h3>';
+                const leftGrid = document.createElement('div');
+                leftGrid.className = 'num-buttons-grid';
+                const rightCol = document.createElement('div');
+                rightCol.className = 'dual-col';
+                rightCol.innerHTML = '<h3>🔢 余数</h3>';
+                const rightGrid = document.createElement('div');
+                rightGrid.className = 'num-buttons-grid';
+                const btns = [];
+                for (let d = 1; d <= 9; d++) {
+                    const btnL = document.createElement('button');
+                    btnL.className = 'num-btn';
+                    btnL.setAttribute('data-value', d);
+                    btnL.textContent = d;
+                    btnL.addEventListener('click', () => onDivisionNumberClick('quotient', d));
+                    leftGrid.appendChild(btnL);
+                    btns.push(btnL);
+                }
+                for (let d = 1; d <= 9; d++) {
+                    const btnR = document.createElement('button');
+                    btnR.className = 'num-btn';
+                    btnR.setAttribute('data-value', d);
+                    btnR.textContent = d;
+                    btnR.addEventListener('click', () => onDivisionNumberClick('remainder', d));
+                    rightGrid.appendChild(btnR);
+                    btns.push(btnR);
+                }
+                leftCol.appendChild(leftGrid);
+                rightCol.appendChild(rightGrid);
+                dualDiv.appendChild(leftCol);
+                dualDiv.appendChild(rightCol);
+                numberPanel.appendChild(dualDiv);
+                const clearDiv = document.createElement('div');
+                clearDiv.className = 'clear-btn';
+                clearDiv.textContent = '🗑️ 清空商和余数';
+                clearDiv.addEventListener('click', () => {
+                    if (checkBtn.disabled) return;
+                    divisionSelected = { quotient: null, remainder: null };
+                    btns.forEach(btn => btn.classList.remove('selected'));
+                    updateDivisionSelectedDisplay();
+                    feedbackDiv.innerHTML = `<span>🧹</span> 已清空，重新选择吧`;
+                });
+                numberPanel.appendChild(clearDiv);
+                numButtons = btns;
+            }
+        }
+
+        // 切换模式
+        function setMode(mode) {
+            currentMode = mode;
+            modeBtns.forEach(btn => {
+                if (btn.getAttribute('data-mode') === mode) btn.classList.add('active');
+                else btn.classList.remove('active');
+            });
+            rebuildNumberPanel();
+            resetGame();
+        }
+
+        function resetGame() {
+            correctCount = 0;
+            totalCount = 0;
+            updateScoreUI();
+            refreshQuestionUI();
+        }
+
+        // 绑定事件
+        modeBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const mode = btn.getAttribute('data-mode');
+                if (mode === 'mult') setMode('mult');
+                else if (mode === 'arithmetic') setMode('arithmetic');
+                else setMode('division');
+            });
+        });
+
+        function init() {
+            setMode('mult');
+            checkBtn.addEventListener('click', handleCheck);
+            nextBtn.addEventListener('click', () => refreshQuestionUI());
+            resetBtn.addEventListener('click', resetGame);
+            musicBtn.addEventListener('click', toggleMusic);
+            initAudio();
+        }
+
+        init();
+    })();
+</script>
+</body>
+</html>
